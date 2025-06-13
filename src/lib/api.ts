@@ -38,7 +38,6 @@ export async function createProject(data: ProjectData) {
   return res.json();
 }
 
-
 export async function updateProject(
   id: number,
   data: { title: string; description: string; techStack: string }
@@ -63,8 +62,6 @@ export async function updateProject(
 
   return res.json();
 }
-
-
 
 export async function deleteProject(id: number) {
   const res = await fetch(`${apiUrl}/projects/${id}/`, {
