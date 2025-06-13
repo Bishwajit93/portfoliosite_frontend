@@ -10,13 +10,13 @@ export default function HomePage() {
           I am a masters student in Scientific Computing based in Berlin. My focus is on full stack development and scientific applications.
         </p>
         <p className="text-gray-600">
-          My main tools are Django PostgreSQL and Next JS. I enjoy creating projects that solve real world problems and improve user experience.
+          My main tools are Django PostgreSQL and Next JS. I enjoy creating projects that solve real world problems and improve user experience. in my off time I do programming.
         </p>
         <p className="text-gray-600">
           I moved to Germany from Bangladesh in 2018. My background in mathematics supports my logical thinking and interest in technology.
         </p>
         <p className="text-gray-600">
-          Please explore my projects and experience or get in touch through the contact page.
+          Please explore my projects and experience or get in touch through the contact page. 
         </p>
       </div>
     </Layout>
