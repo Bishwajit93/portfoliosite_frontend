@@ -20,19 +20,19 @@ export default function Layout({ children }: Props) {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* Header */}
-      <header className="bg-gray-800 text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">Bishwajit Karmaker</h1>
-          <nav className="space-x-4">
+      <header className="bg-gray-800 text-white px-4 py-3">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+          <h1 className="text-lg sm:text-xl font-bold">Bishwajit Karmaker</h1>
+          <nav className="flex flex-wrap justify-center gap-4">
             {navLinks.map(({ href, label }) => {
               const isActive = pathname === href;
               return (
                 <Link
                   key={href}
                   href={href}
-                  className={`hover:underline ${
+                  className={`text-sm sm:text-base hover:underline ${
                     isActive ? "text-blue-400 font-bold" : "text-white"
                   }`}
                 >
@@ -44,9 +44,13 @@ export default function Layout({ children }: Props) {
         </div>
       </header>
 
-      <main className="flex-1 container mx-auto p-4">{children}</main>
+      {/* Main Content */}
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 py-8">
+        {children}
+      </main>
 
-      <footer className="bg-gray-900 text-white text-center p-4 mt-4">
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white text-center p-4 text-sm">
         © {new Date().getFullYear()} Bishwajit Karmaker. All rights reserved.
       </footer>
     </div>
