@@ -5,13 +5,8 @@ export const dynamic = "force-dynamic";
 import { useEffect, useState } from "react";
 import { fetchProjects, deleteProject } from "@/lib/api";
 import AddProjectForm from "@/components/AddProjectForm";
+import { Project } from "@/types/project";
 
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  tech_stack: string;
-};
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
