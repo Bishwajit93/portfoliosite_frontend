@@ -5,13 +5,13 @@ export default function HomePage() {
   return (
     <Layout>
       <div className="max-w-2xl mx-auto space-y-6 p-4">
-        <h1 className="text-4xl font-bold">👋 Hi, I'm Bishwajit Karmaker</h1>
+        <h1 className="text-4xl font-bold">👋 Hi, I am Bishwajit Karmaker</h1>
         <p className="text-gray-700">
-          I'm a dedicated developer and master's student based in Berlin. With a strong background in Scientific Computing and a passion for building real-world software, I'm currently developing full-stack applications with Django, PostgreSQL, and Next.js.
+          I am an M.Sc. student in Scientific Computing, based in Berlin. I build full-stack web applications using Django, PostgreSQL, and Next.js — with a passion for solving real-world problems through software.
         </p>
 
         <p className="text-gray-600">
-          After moving from Bangladesh to Germany in 2018, I’ve worked through academic challenges, personal growth, and professional transitions — always motivated by the belief that technology can make a real difference.
+          I moved from Bangladesh to Germany in 2018 and have since gained experience in both academia and professional environments. My background in mathematics continues to support my logical thinking and technical growth.
         </p>
 
         <p className="text-gray-600">
