@@ -1,14 +1,36 @@
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Bishwajit Karmaker Portfolio",
+  description: "Personal portfolio site",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <div
-          className="min-h-screen bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/images/workspace_background.png')" }}
+          className="min-h-screen bg-[url('/images/workspace_background.png')] bg-cover bg-center bg-no-repeat"
         >
-          <div className="bg-black/50 min-h-screen"> {/* Optional dark overlay */}
-            {children}
-          </div>
+          <div className="bg-black/40 min-h-screen">{children}</div>
         </div>
       </body>
     </html>
