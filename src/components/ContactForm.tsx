@@ -3,63 +3,110 @@
 import { useForm, ValidationError } from '@formspree/react';
 
 export default function ContactForm() {
-  const [state, handleSubmit] = useForm("xyzjjjkp");
+  const [state, handleSubmit] = useForm('xyzjjjkp');
 
   if (state.succeeded) {
-    return <p className="text-green-600 font-semibold">✅ Thanks for your message!</p>;
+    return (
+      <p className="text-green-300 font-semibold text-center">
+        ✅ Thanks for your message!
+      </p>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 border p-4 rounded shadow bg-white">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800">📨 Contact Form</h2>
+    <form
+      onSubmit={handleSubmit}
+      className="w-full max-w-2xl space-y-4 p-6 rounded-lg shadow-md border border-cyan-500 bg-black/30 backdrop-blur-md"
+    >
+      <h2 className="text-2xl font-semibold text-cyan-100 mb-4 text-center">
+        Contact Form
+      </h2>
 
-      {/* Name Field */}
+      {/* First Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-black">Full Name</label>
+        <label htmlFor="firstName" className="block text-sm font-medium text-cyan-200">
+          First Name
+        </label>
         <input
-          id="name"
+          id="firstName"
           type="text"
-          name="name"
+          name="firstName"
           required
-          className="mt-1 block w-full border border-gray-300 rounded p-2 text-black"
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
         />
-        <ValidationError prefix="Name" field="name" errors={state.errors} />
+        <ValidationError prefix="First Name" field="firstName" errors={state.errors} />
       </div>
 
-      {/* Email Field */}
+      {/* Last Name */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-black">Email Address</label>
+        <label htmlFor="lastName" className="block text-sm font-medium text-cyan-200">
+          Last Name
+        </label>
+        <input
+          id="lastName"
+          type="text"
+          name="lastName"
+          required
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
+        />
+        <ValidationError prefix="Last Name" field="lastName" errors={state.errors} />
+      </div>
+
+      {/* Email */}
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-cyan-200">
+          Email Address
+        </label>
         <input
           id="email"
           type="email"
           name="email"
           required
-          className="mt-1 block w-full border border-gray-300 rounded p-2 text-black"
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
         />
         <ValidationError prefix="Email" field="email" errors={state.errors} />
       </div>
 
-      {/* Message Field */}
+      {/* Subject */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-black">Your Message</label>
+        <label htmlFor="subject" className="block text-sm font-medium text-cyan-200">
+          Subject
+        </label>
+        <input
+          id="subject"
+          type="text"
+          name="subject"
+          required
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
+        />
+        <ValidationError prefix="Subject" field="subject" errors={state.errors} />
+      </div>
+
+      {/* Message */}
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-cyan-200">
+          Your Message
+        </label>
         <textarea
           id="message"
           name="message"
-          rows={5}
+          rows={4}
           required
-          className="mt-1 block w-full border border-gray-300 rounded p-2 text-black"
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
         />
         <ValidationError prefix="Message" field="message" errors={state.errors} />
       </div>
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={state.submitting}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Send
-      </button>
+      {/* Submit */}
+      <div className="text-center">
+        <button
+          type="submit"
+          disabled={state.submitting}
+          className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-6 py-2 rounded"
+        >
+          Send
+        </button>
+      </div>
     </form>
   );
 }
