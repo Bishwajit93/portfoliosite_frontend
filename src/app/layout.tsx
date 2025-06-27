@@ -28,9 +28,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div
-          className="min-h-screen bg-[url('/images/workspace_background.png')] bg-cover bg-center bg-no-repeat"
+          className="min-h-screen w-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/workspace_background.png')" }}
         >
-          <div className="bg-black/40 min-h-screen">{children}</div>
+          <div className="min-h-screen bg-black/40">{children}</div>
         </div>
       </body>
     </html>
