@@ -9,16 +9,16 @@ export default function EducationPage() {
 
         <div className="mb-6">
           <h2 className="text-xl font-semibold">TU Berlin</h2>
-          <p className="text-gray-700">Master of Science in Scientific Computing</p>
-          <p className="text-sm text-gray-600 mt-1">
+          <p>Master of Science in Scientific Computing</p>
+          <p className="text-sm mt-1">
             Courses in numerical mathematics machine learning and optimization
           </p>
         </div>
 
         <div>
           <h2 className="text-xl font-semibold">BRAC University Dhaka</h2>
-          <p className="text-gray-700">Bachelor of Science in Mathematics</p>
-          <p className="text-sm text-gray-600 mt-1">
+          <p>Bachelor of Science in Mathematics</p>
+          <p className="text-sm mt-1">
             Completed in Bangladesh with focus on logic analysis and applied mathematics
           </p>
         </div>

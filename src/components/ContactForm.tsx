@@ -16,7 +16,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-2xl space-y-4 p-6 rounded-lg shadow-md border border-cyan-500 bg-black/30 backdrop-blur-md"
+      className="w-full max-w-2xl mx-auto p-8 rounded-lg border border-cyan-400 text-slate-100 font-semibold"
     >
       <h2 className="text-2xl font-semibold text-cyan-100 mb-4 text-center">
         Contact Form
@@ -24,7 +24,7 @@ export default function ContactForm() {
 
       {/* First Name */}
       <div>
-        <label htmlFor="firstName" className="block text-sm font-medium text-cyan-200">
+        <label htmlFor="firstName" className="block text-sm font-semibold text-cyan-200">
           First Name
         </label>
         <input
@@ -32,14 +32,17 @@ export default function ContactForm() {
           type="text"
           name="firstName"
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+           hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
+           focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
+           transition"
         />
         <ValidationError prefix="First Name" field="firstName" errors={state.errors} />
       </div>
 
       {/* Last Name */}
       <div>
-        <label htmlFor="lastName" className="block text-sm font-medium text-cyan-200">
+        <label htmlFor="lastName" className="block text-sm font-semibold text-cyan-200">
           Last Name
         </label>
         <input
@@ -47,14 +50,17 @@ export default function ContactForm() {
           type="text"
           name="lastName"
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+           hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
+           focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
+           transition"
         />
         <ValidationError prefix="Last Name" field="lastName" errors={state.errors} />
       </div>
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-cyan-200">
+        <label htmlFor="email" className="block text-sm font-semibold text-cyan-200">
           Email Address
         </label>
         <input
@@ -62,14 +68,18 @@ export default function ContactForm() {
           type="email"
           name="email"
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+           hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
+           focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
+           transition"
+
         />
         <ValidationError prefix="Email" field="email" errors={state.errors} />
       </div>
 
       {/* Subject */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-cyan-200">
+        <label htmlFor="subject" className="block text-sm font-semibold text-cyan-200">
           Subject
         </label>
         <input
@@ -77,14 +87,17 @@ export default function ContactForm() {
           type="text"
           name="subject"
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+           hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
+           focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
+           transition"
         />
         <ValidationError prefix="Subject" field="subject" errors={state.errors} />
       </div>
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-cyan-200">
+        <label htmlFor="message" className="block text-sm font-semibold text-cyan-200">
           Your Message
         </label>
         <textarea
@@ -92,7 +105,10 @@ export default function ContactForm() {
           name="message"
           rows={4}
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-black/20 text-white"
+          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+           hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
+           focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
+           transition"
         />
         <ValidationError prefix="Message" field="message" errors={state.errors} />
       </div>
@@ -102,7 +118,11 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={state.submitting}
-          className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-6 py-2 rounded"
+            className="border border-cyan-400 text-cyan-300 px-6 py-2 rounded 
+             bg-transparent 
+             hover:bg-cyan-200/20 hover:backdrop-blur-sm 
+             focus:bg-cyan-500/20 focus:backdrop-blur-sm focus:outline-none 
+             transition"
         >
           Send
         </button>

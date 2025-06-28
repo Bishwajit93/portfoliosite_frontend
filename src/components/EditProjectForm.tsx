@@ -35,39 +35,60 @@ export default function EditProjectForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 border p-4 rounded shadow mb-6 bg-yellow-50">
-      <h2 className="text-xl font-bold">Edit Project</h2>
+    <form 
+      onSubmit={handleSubmit}
+      className="w-full max-w-2xl mx-auto p-8 rounded-lg border border-cyan-400 text-slate-100 space-y-4"
+    >
+      <h2 className="text-xl font-bold mb-4">Edit Project</h2>
+
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full border rounded p-2"
+        className="w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 font-normal
+                   hover:bg-cyan-200/20 hover:backdrop-blur-sm 
+                   focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none transition"
         required
       />
+
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="w-full border rounded p-2"
+        className="w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 font-normal
+                   hover:bg-cyan-200/20 hover:backdrop-blur-sm 
+                   focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none transition"
         required
       />
+
       <input
         type="text"
         value={techStack}
         onChange={(e) => setTechStack(e.target.value)}
-        className="w-full border rounded p-2"
+        className="w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 font-normal
+                   hover:bg-cyan-200/20 hover:backdrop-blur-sm 
+                   focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none transition"
         required
       />
-      <div className="flex gap-2">
+
+      <div className="flex gap-4">
         <button
           type="submit"
-          className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700"
+          className="border border-cyan-400 text-cyan-300 px-6 py-2 rounded 
+                     bg-transparent 
+                     hover:bg-cyan-400/30 hover:backdrop-blur-sm 
+                     focus:bg-cyan-500/30 focus:backdrop-blur-sm focus:outline-none 
+                     transition"
         >
           Save
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
+          className="border border-gray-400 text-gray-300 px-6 py-2 rounded 
+                     bg-transparent 
+                     hover:bg-gray-400/30 hover:backdrop-blur-sm 
+                     focus:bg-gray-500/30 focus:backdrop-blur-sm focus:outline-none 
+                     transition"
         >
           Cancel
         </button>

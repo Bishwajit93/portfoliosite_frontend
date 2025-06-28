@@ -69,14 +69,14 @@ export default function ProjectsPage() {
         ) : error ? (
           <p className="text-red-500">Error: {error}</p>
         ) : (
-          <ul className="space-y-4">
+          <ul className="space-y-4 mt-8">
             {projects.map((project) => (
               <li key={project.id} className="border p-4 rounded shadow">
                 <div className="flex justify-between items-start">
                   <div>
                     <h2 className="text-xl font-semibold">{project.title}</h2>
                     <p>{project.description}</p>
-                    <p className="text-sm text-gray-500">{project.tech_stack}</p>
+                    <p className="text-sm">{project.tech_stack}</p>
                   </div>
                   <div className="flex gap-2">
                     <button
