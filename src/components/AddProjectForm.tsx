@@ -1,82 +1,203 @@
 'use client';
 
-import { useState, FormEvent } from "react";
-import { createProject } from "@/lib/api";
+import { useState } from "react";
+import { createProject } from "@/lib/api/projectApi";
+import { ProjectData } from "@/types/project";
 
-type AddProjectFormProps = {
-  onProjectAdded: () => void;
+type Props = {
+  onProjectAdded: () => Promise<void>;
 };
 
-export default function AddProjectForm({ onProjectAdded }: AddProjectFormProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [techStack, setTechStack] = useState("");
+export default function AddProjectForm({ onProjectAdded }: Props) {
+  const [form, setForm] = useState<ProjectData>({
+    title: "",
+    description: "",
+    tech_stack: "",
+    github_backend_url: "",
+    github_frontend_url: "",
+    live_url: "",
+    start_date: "",
+    end_date: "",
+    status: "In Progress",
+  });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [saving, setSaving] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (form.end_date && form.start_date && form.end_date < form.start_date) {
+      setErrors({ end_date: "End date cannot be before start date" });
+      return;
+    }
+
+    setSaving(true);
+    setErrors({});
     try {
-      await createProject({ title, description, techStack });
-      setTitle("");
-      setDescription("");
-      setTechStack("");
-      onProjectAdded();
+      await createProject({
+        title: form.title,
+        description: form.description,
+        tech_stack: form.tech_stack,
+        github_backend_url: form.github_backend_url || "",
+        github_frontend_url: form.github_frontend_url || "",
+        live_url: form.live_url || "",
+        start_date: form.start_date || "",
+        end_date: form.end_date || "",
+        status: form.status,
+      });
+      await onProjectAdded();
+      setForm({
+        title: "",
+        description: "",
+        tech_stack: "",
+        github_backend_url: "",
+        github_frontend_url: "",
+        live_url: "",
+        start_date: "",
+        end_date: "",
+        status: "In Progress",
+      });
+      alert("Project added successfully.");
     } catch (err) {
-      if (err instanceof Error) {
-        alert("Error: " + err.message);
-      } else {
-        alert("An unknown error occurred.");
-      }
+      console.error(err);
+      alert("Failed to add project.");
+    } finally {
+      setSaving(false);
     }
   };
 
   return (
-    <form 
+    <form
       onSubmit={handleSubmit}
-      className="w-full max-w-2xl mx-auto p-8 rounded-lg border border-cyan-400 text-slate-100 space-y-4"
+      className="space-y-4 p-6 border border-cyan-400 rounded-lg text-slate-100 font-semibold"
     >
-      <h2 className="text-xl font-bold mb-4">Add New Project</h2>
+      <h2 className="text-xl font-bold mb-4 text-center">Add New Project</h2>
 
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 font-normal
-                   hover:bg-cyan-200/20 hover:backdrop-blur-sm 
-                   focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none transition"
-        required
-      />
+      <div>
+        <label className="block text-sm">Title</label>
+        <input
+          type="text"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          required
+        />
+      </div>
 
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 font-normal
-                   hover:bg-cyan-200/20 hover:backdrop-blur-sm 
-                   focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none transition"
-        required
-      />
+      <div>
+        <label className="block text-sm">Tech Stack</label>
+        <input
+          type="text"
+          name="tech_stack"
+          value={form.tech_stack}
+          onChange={handleChange}
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          required
+        />
+      </div>
 
-      <input
-        type="text"
-        placeholder="Tech Stack"
-        value={techStack}
-        onChange={(e) => setTechStack(e.target.value)}
-        className="w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 font-normal
-                   hover:bg-cyan-200/20 hover:backdrop-blur-sm 
-                   focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none transition"
-        required
-      />
+      <div>
+        <label className="block text-sm">GitHub Backend URL</label>
+        <input
+          type="url"
+          name="github_backend_url"
+          value={form.github_backend_url ?? ""}
+          onChange={handleChange}
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+        />
+      </div>
 
-      <button
-        type="submit"
-        className="border border-cyan-400 text-cyan-300 px-6 py-2 rounded 
-                   bg-transparent 
-                   hover:bg-cyan-400/30 hover:backdrop-blur-sm 
-                   focus:bg-cyan-500/30 focus:backdrop-blur-sm focus:outline-none transition"
-      >
-        Add Project
-      </button>
+      <div>
+        <label className="block text-sm">GitHub Frontend URL</label>
+        <input
+          type="url"
+          name="github_frontend_url"
+          value={form.github_frontend_url ?? ""}
+          onChange={handleChange}
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm">Live URL</label>
+        <input
+          type="url"
+          name="live_url"
+          value={form.live_url ?? ""}
+          onChange={handleChange}
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+        />
+      </div>
+
+      <div className="flex space-x-2">
+        <div className="flex-1">
+          <label className="block text-sm">Start Date</label>
+          <input
+            type="date"
+            name="start_date"
+            value={form.start_date ?? ""}
+            onChange={handleChange}
+            className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          />
+        </div>
+        <div className="flex-1">
+          <label className="block text-sm">End Date</label>
+          <input
+            type="date"
+            name="end_date"
+            value={form.end_date ?? ""}
+            onChange={handleChange}
+            className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          />
+          {errors.end_date && (
+            <p className="text-red-400 text-sm mt-1">{errors.end_date}</p>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm">Status</label>
+        <select
+          name="status"
+          value={form.status}
+          onChange={handleChange}
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+        >
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+          <option value="Paused">Paused</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-sm">Description</label>
+        <textarea
+          name="description"
+          rows={3}
+          value={form.description}
+          onChange={handleChange}
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          required
+        ></textarea>
+      </div>
+
+      <div className="text-center mt-6">
+        <button
+          type="submit"
+          disabled={saving}
+          className="border border-cyan-400 px-6 py-2 rounded hover:bg-cyan-200/20 transition"
+        >
+          {saving ? "Saving..." : "Add Project"}
+        </button>
+      </div>
     </form>
   );
 }

@@ -1,42 +1,29 @@
 'use client';
-export const dynamic = "force-dynamic";
 
-import { useEffect, useState } from "react";
-import { fetchProjects, deleteProject } from "@/lib/api";
-import AddProjectForm from "@/components/AddProjectForm";
-import EditProjectForm from "@/components/EditProjectForm";
+import { useState, useEffect } from "react";
 import { Project } from "@/types/project";
+import { fetchProjects } from "@/lib/api/projectApi";
+import AddProjectForm from "@/components/AddProjectForm";
+import ProjectCard from "@/components/ProjectCard";
 import Layout from "@/components/Layout";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [showForm, setShowForm] = useState(false);
 
-  const loadProjects = () => {
+  const loadProjects = async () => {
     setLoading(true);
-    fetchProjects()
-      .then(setProjects)
-      .catch((err) =>
-        setError(err instanceof Error ? err.message : "Unknown error")
-      )
-      .finally(() => setLoading(false));
-  };
-
-  const handleDelete = async (id: number) => {
-    const confirmed = window.confirm("Are you sure you want to delete this project?");
-    if (!confirmed) return;
-
     try {
-      await deleteProject(id);
-      loadProjects();
+      const data = await fetchProjects();
+      setProjects(data);
+      setError(null);
     } catch (err) {
-      if (err instanceof Error) {
-        alert("Error: " + err.message);
-      } else {
-        alert("An unknown error occurred.");
-      }
+      console.error(err);
+      setError("Failed to load projects.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,60 +31,53 @@ export default function ProjectsPage() {
     loadProjects();
   }, []);
 
+  // This updates a single project in-place to keep order
+  const handleProjectUpdated = async (updated: Project) => {
+    setProjects(prevProjects =>
+      prevProjects.map(proj => (proj.id === updated.id ? updated : proj))
+    );
+  };
+
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-6">📦 My Portfolio Projects</h1>
+      <main className="max-w-4xl mx-auto p-4">
+        <h1 className="text-3xl font-bold text-center mb-4">Projects</h1>
+        <div className="flex justify-end mb-6">
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="border border-cyan-400 text-cyan-300 px-4 py-2 rounded 
+            hover:bg-cyan-200/20 hover:backdrop-blur-sm 
+            focus:bg-cyan-500/20 focus:backdrop-blur-sm focus:outline-none 
+            transition"
+          >
+            {showForm ? "Close" : "+ Add New Project"}
+          </button>
+        </div>
 
-        {/* Show Edit or Add form */}
-        {editingProject ? (
-          <EditProjectForm 
-            project={editingProject}
-            onCancel={() => setEditingProject(null)}
-            onProjectUpdated={() => {
-              setEditingProject(null);
-              loadProjects();
-            }}
-          />
-        ) : (
-          <AddProjectForm onProjectAdded={loadProjects} />
+        {showForm && (
+          <AddProjectForm onProjectAdded={async () => {
+            await loadProjects();
+            setShowForm(false);
+          }} />
         )}
 
-        {/* Project list */}
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p className="text-red-500">Error: {error}</p>
-        ) : (
-          <ul className="space-y-4 mt-8">
-            {projects.map((project) => (
-              <li key={project.id} className="border p-4 rounded shadow">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h2 className="text-xl font-semibold">{project.title}</h2>
-                    <p>{project.description}</p>
-                    <p className="text-sm">{project.tech_stack}</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => setEditingProject(project)}
-                      className="text-sm text-yellow-600 border border-yellow-600 px-2 py-1 rounded hover:bg-yellow-100"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(project.id)}
-                      className="text-sm text-red-600 border border-red-600 px-2 py-1 rounded hover:bg-red-100"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+        {loading && <p className="text-center mt-8">Loading projects...</p>}
+        {error && <p className="text-red-400 text-center mt-8">{error}</p>}
+
+        <div className="grid gap-6 mt-8">
+          {projects.map(project => (
+            <ProjectCard 
+              key={project.id} 
+              project={project}
+              onProjectUpdated={async () => {
+                const fresh = await fetchProjects();
+                const updated = fresh.find(p => p.id === project.id);
+                if (updated) handleProjectUpdated(updated);
+              }}
+            />
+          ))}
+        </div>
+      </main>
     </Layout>
   );
 }

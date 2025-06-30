@@ -28,10 +28,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div
-          className="min-h-screen w-full bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/images/workspace_background.png')" }}
+          className="min-h-screen w-full" // Use your desired solid color here
+          // Removed bg-cover, bg-center, bg-no-repeat and backgroundImage style
         >
-          <div className="min-h-screen bg-black/40">{children}</div>
+          <div className="min-h-screen bg-black/30">{children}</div>
         </div>
       </body>
     </html>

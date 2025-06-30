@@ -8,7 +8,7 @@ export default function ContactPage() {
   return (
     <Layout>
       <div 
-        className="text-blue-100 min-h-screen flex flex-col items-center justify-center px-4">
+        className="text-blue-100 min-h-screen flex flex-col items-center px-4">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
           Contact Bishwajit Karmaker
         </h1>

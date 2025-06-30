@@ -24,7 +24,7 @@ export default function ContactForm() {
 
       {/* First Name */}
       <div>
-        <label htmlFor="firstName" className="block text-sm font-semibold text-cyan-200">
+        <label htmlFor="firstName" className="block text-sm font-semibold">
           First Name
         </label>
         <input
@@ -32,7 +32,7 @@ export default function ContactForm() {
           type="text"
           name="firstName"
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent text-slate-100 
            hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
            focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
            transition"
@@ -42,7 +42,7 @@ export default function ContactForm() {
 
       {/* Last Name */}
       <div>
-        <label htmlFor="lastName" className="block text-sm font-semibold text-cyan-200">
+        <label htmlFor="lastName" className="block text-sm font-semibold">
           Last Name
         </label>
         <input
@@ -50,7 +50,7 @@ export default function ContactForm() {
           type="text"
           name="lastName"
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent text-slate-100 
            hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
            focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
            transition"
@@ -60,7 +60,7 @@ export default function ContactForm() {
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm font-semibold text-cyan-200">
+        <label htmlFor="email" className="block text-sm font-semibold">
           Email Address
         </label>
         <input
@@ -68,7 +68,7 @@ export default function ContactForm() {
           type="email"
           name="email"
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent text-slate-100 
            hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
            focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
            transition"
@@ -79,7 +79,7 @@ export default function ContactForm() {
 
       {/* Subject */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-semibold text-cyan-200">
+        <label htmlFor="subject" className="block text-sm font-semibold">
           Subject
         </label>
         <input
@@ -87,7 +87,7 @@ export default function ContactForm() {
           type="text"
           name="subject"
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent text-slate-100 
            hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
            focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
            transition"
@@ -97,7 +97,7 @@ export default function ContactForm() {
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-semibold text-cyan-200">
+        <label htmlFor="message" className="block text-sm font-semibold">
           Your Message
         </label>
         <textarea
@@ -105,7 +105,7 @@ export default function ContactForm() {
           name="message"
           rows={4}
           required
-          className="mt-1 w-full border border-gray-300 rounded p-2 bg-transparent text-slate-100 
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent text-slate-100 
            hover:bg-cyan-200/20 hover:backdrop-blur-sm font-normal
            focus:bg-cyan-300/20 focus:backdrop-blur-sm focus:outline-none
            transition"
