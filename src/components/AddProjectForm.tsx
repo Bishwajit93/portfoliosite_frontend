@@ -36,19 +36,13 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
         end_date: value === "Completed" ? prev.end_date : ""
       }));
       if (value !== "Completed") {
-        setErrors((prev) => {
-          const { end_date: _, ...rest } = prev;
-          return rest;
-        });
+        setErrors((prev) => (({ end_date, ...r }) => r)(prev));
       }
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
 
-    setErrors((prev) => {
-      const { [name]: _, ...rest } = prev;
-      return rest;
-    });
+    setErrors((prev) => (({ [name]: _, ...r }) => r)(prev));
   };
 
   const validate = () => {
