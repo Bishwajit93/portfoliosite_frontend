@@ -54,13 +54,21 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
         end_date: value === "Completed" ? prev.end_date : ""
       }));
       if (value !== "Completed") {
-        setErrors((prev) => (({ end_date, ...r }) => r)(prev));
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors.end_date;
+          return newErrors;
+        });
       }
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
 
-    setErrors((prev) => (({ [name]: _, ...r }) => r)(prev));
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors[name];
+      return newErrors;
+    });
   };
 
   const validate = () => {
