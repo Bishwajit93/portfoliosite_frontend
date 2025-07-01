@@ -43,7 +43,9 @@ export default function ProjectCard({ project, onProjectUpdated }: Props) {
           <p><span className="font-bold">Status:</span> {project.status}</p>
           {project.tech_stack && <p><span className="font-bold">Tech Stack:</span> {project.tech_stack}</p>}
           {project.start_date && <p><span className="font-bold">Start:</span> {project.start_date}</p>}
-          {project.end_date && <p><span className="font-bold">End:</span> {project.end_date}</p>}
+          {project.status === "Completed" && project.end_date && (
+            <p><span className="font-bold">End:</span> {project.end_date}</p>
+          )}
           {project.github_backend_url && (
             <p><span className="font-bold">GitHub Backend:</span> <a href={project.github_backend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_backend_url}</a></p>
           )}
@@ -88,7 +90,10 @@ export default function ProjectCard({ project, onProjectUpdated }: Props) {
             <p><span className="font-bold">Status:</span> {project.status}</p>
             {project.tech_stack && <p><span className="font-bold">Tech Stack:</span> {project.tech_stack}</p>}
             {project.start_date && <p><span className="font-bold">Start:</span> {project.start_date}</p>}
-            {project.end_date && <p><span className="font-bold">End:</span> {project.end_date}</p>}
+            {project.status === "Completed" && project.end_date && (
+              <p><span className="font-bold">End:</span> {project.end_date}</p>
+            )}
+
             {project.github_backend_url && (
               <p><span className="font-bold">GitHub Backend:</span> <a href={project.github_backend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_backend_url}</a></p>
             )}

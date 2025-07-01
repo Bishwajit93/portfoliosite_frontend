@@ -21,36 +21,63 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     status: "In Progress",
   });
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<{ [key: string]: any }>({});
   const [saving, setSaving] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "status") {
+      setForm((prev) => ({
+        ...prev,
+        status: value,
+        end_date: value === "Completed" ? prev.end_date : ""
+      }));
+      if (value !== "Completed") {
+        setErrors((prev) => {
+          const { end_date, ...rest } = prev;
+          return rest;
+        });
+      }
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    }
+
+    setErrors((prev) => {
+      const { [name]: removed, ...rest } = prev;
+      return rest;
+    });
+  };
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!form.title.trim()) newErrors.title = "Title is required.";
+    if (!form.description.trim()) newErrors.description = "Description is required.";
+    if (!form.tech_stack.trim()) newErrors.tech_stack = "Tech Stack is required.";
+    if (form.status === "Completed") {
+      if (!form.end_date) {
+        newErrors.end_date = "End date is required for completed projects.";
+      } else if (form.start_date && form.end_date < form.start_date) {
+        newErrors.end_date = "End date cannot be before start date.";
+      }
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (form.end_date && form.start_date && form.end_date < form.start_date) {
-      setErrors({ end_date: "End date cannot be before start date" });
-      return;
-    }
+    if (!validate()) return;
 
     setSaving(true);
-    setErrors({});
     try {
       await createProject({
-        title: form.title,
-        description: form.description,
-        tech_stack: form.tech_stack,
-        github_backend_url: form.github_backend_url || "",
-        github_frontend_url: form.github_frontend_url || "",
-        live_url: form.live_url || "",
-        start_date: form.start_date || "",
-        end_date: form.end_date || "",
-        status: form.status,
+        ...form,
+        end_date: form.status === "Completed"
+          ? (form.end_date || null)
+          : null
       });
       await onProjectAdded();
       setForm({
@@ -64,10 +91,15 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
         end_date: "",
         status: "In Progress",
       });
+      setErrors({});
       alert("Project added successfully.");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to add project.");
+    } catch (err: any) {
+      console.error("Add project failed:", err);
+      if (err.start_date || err.end_date || err.title || err.non_field_errors) {
+        setErrors(err);
+      } else {
+        alert("Failed to add project.");
+      }
     } finally {
       setSaving(false);
     }
@@ -80,16 +112,24 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     >
       <h2 className="text-xl font-bold mb-4 text-center">Add New Project</h2>
 
+      {errors.non_field_errors && (
+        <p className="text-red-400 text-sm mt-1 text-center">
+          {errors.non_field_errors.join(" ")}
+        </p>
+      )}
+
       <div>
         <label className="block text-sm">Title</label>
         <input
           type="text"
           name="title"
-          value={form.title}
+          value={form.title || ""}
           onChange={handleChange}
-          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
-          required
+          className={`mt-1 w-full border rounded p-2 bg-transparent ${
+            errors.title ? "border-red-500" : "border-cyan-400"
+          } focus:outline-none`}
         />
+        {errors.title && <p className="text-red-400 text-sm mt-1">{errors.title}</p>}
       </div>
 
       <div>
@@ -97,11 +137,13 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
         <input
           type="text"
           name="tech_stack"
-          value={form.tech_stack}
+          value={form.tech_stack || ""}
           onChange={handleChange}
-          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
-          required
+          className={`mt-1 w-full border rounded p-2 bg-transparent ${
+            errors.tech_stack ? "border-red-500" : "border-cyan-400"
+          } focus:outline-none`}
         />
+        {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{errors.tech_stack}</p>}
       </div>
 
       <div>
@@ -109,9 +151,9 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
         <input
           type="url"
           name="github_backend_url"
-          value={form.github_backend_url ?? ""}
+          value={form.github_backend_url || ""}
           onChange={handleChange}
-          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
         />
       </div>
 
@@ -120,9 +162,9 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
         <input
           type="url"
           name="github_frontend_url"
-          value={form.github_frontend_url ?? ""}
+          value={form.github_frontend_url || ""}
           onChange={handleChange}
-          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
         />
       </div>
 
@@ -131,9 +173,9 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
         <input
           type="url"
           name="live_url"
-          value={form.live_url ?? ""}
+          value={form.live_url || ""}
           onChange={handleChange}
-          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
         />
       </div>
 
@@ -143,33 +185,38 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
           <input
             type="date"
             name="start_date"
-            value={form.start_date ?? ""}
+            value={form.start_date || ""}
             onChange={handleChange}
-            className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+            className={`mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none
+              ${errors.start_date ? "border-red-500" : "border-cyan-400"}`}
           />
+          {errors.start_date && <p className="text-red-400 text-sm mt-1">{errors.start_date}</p>}
         </div>
-        <div className="flex-1">
-          <label className="block text-sm">End Date</label>
-          <input
-            type="date"
-            name="end_date"
-            value={form.end_date ?? ""}
-            onChange={handleChange}
-            className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
-          />
-          {errors.end_date && (
-            <p className="text-red-400 text-sm mt-1">{errors.end_date}</p>
-          )}
-        </div>
+
+        {form.status === "Completed" && (
+          <div className="flex-1">
+            <label className="block text-sm">End Date</label>
+            <input
+              type="date"
+              name="end_date"
+              value={form.end_date || ""}
+              onChange={handleChange}
+              className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none ${
+                errors.end_date ? "border-red-500" : "border-cyan-400"
+              }`}
+            />
+            {errors.end_date && <p className="text-red-400 text-sm mt-1">{errors.end_date}</p>}
+          </div>
+        )}
       </div>
 
       <div>
         <label className="block text-sm">Status</label>
         <select
           name="status"
-          value={form.status}
+          value={form.status || "In Progress"}
           onChange={handleChange}
-          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
+          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
         >
           <option value="In Progress">In Progress</option>
           <option value="Completed">Completed</option>
@@ -182,11 +229,13 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
         <textarea
           name="description"
           rows={3}
-          value={form.description}
+          value={form.description || ""}
           onChange={handleChange}
-          className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent"
-          required
+          className={`mt-1 w-full border rounded p-2 bg-transparent ${
+            errors.description ? "border-red-500" : "border-cyan-400"
+          } focus:outline-none`}
         ></textarea>
+        {errors.description && <p className="text-red-400 text-sm mt-1">{errors.description}</p>}
       </div>
 
       <div className="text-center mt-6">
