@@ -21,7 +21,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     status: "In Progress",
   });
 
-  const [errors, setErrors] = useState<{ [key: string]: any }>({});
+  const [errors, setErrors] = useState<{ [key: string]: string | string[] }>({});
   const [saving, setSaving] = useState(false);
 
   const handleChange = (
@@ -37,7 +37,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
       }));
       if (value !== "Completed") {
         setErrors((prev) => {
-          const { end_date: _end_date, ...rest } = prev;
+          const { end_date: _, ...rest } = prev;
           return rest;
         });
       }
@@ -46,7 +46,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     }
 
     setErrors((prev) => {
-      const { [name]: _removed, ...rest } = prev;
+      const { [name]: _, ...rest } = prev;
       return rest;
     });
   };
@@ -106,6 +106,12 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     }
   };
 
+  const renderError = (value: string | string[] | undefined): string => {
+    if (Array.isArray(value)) return value.join(" ");
+    if (typeof value === "string") return value;
+    return "";
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -115,7 +121,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
 
       {errors.non_field_errors && (
         <p className="text-red-400 text-sm mt-1 text-center">
-          {errors.non_field_errors.join(" ")}
+          {renderError(errors.non_field_errors)}
         </p>
       )}
 
@@ -130,7 +136,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
             errors.title ? "border-red-500" : "border-cyan-400"
           } focus:outline-none`}
         />
-        {errors.title && <p className="text-red-400 text-sm mt-1">{errors.title}</p>}
+        {errors.title && <p className="text-red-400 text-sm mt-1">{renderError(errors.title)}</p>}
       </div>
 
       <div>
@@ -144,7 +150,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
             errors.tech_stack ? "border-red-500" : "border-cyan-400"
           } focus:outline-none`}
         />
-        {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{errors.tech_stack}</p>}
+        {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{renderError(errors.tech_stack)}</p>}
       </div>
 
       <div>
@@ -191,7 +197,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
             className={`mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none
               ${errors.start_date ? "border-red-500" : "border-cyan-400"}`}
           />
-          {errors.start_date && <p className="text-red-400 text-sm mt-1">{errors.start_date}</p>}
+          {errors.start_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.start_date)}</p>}
         </div>
 
         {form.status === "Completed" && (
@@ -206,7 +212,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
                 errors.end_date ? "border-red-500" : "border-cyan-400"
               }`}
             />
-            {errors.end_date && <p className="text-red-400 text-sm mt-1">{errors.end_date}</p>}
+            {errors.end_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.end_date)}</p>}
           </div>
         )}
       </div>
@@ -236,7 +242,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
             errors.description ? "border-red-500" : "border-cyan-400"
           } focus:outline-none`}
         ></textarea>
-        {errors.description && <p className="text-red-400 text-sm mt-1">{errors.description}</p>}
+        {errors.description && <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>}
       </div>
 
       <div className="text-center mt-6">

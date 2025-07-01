@@ -25,7 +25,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
     status: "In Progress"
   });
 
-  const [errors, setErrors] = useState<{ [key: string]: any }>({});
+  const [errors, setErrors] = useState<{ [key: string]: string | string[] }>({});
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
       }));
       if (value !== "Completed") {
         setErrors((prev) => {
-          const { end_date: _end_date, ...rest } = prev;
+          const { end_date: _, ...rest } = prev;
           return rest;
         });
       }
@@ -64,7 +64,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
     }
 
     setErrors((prev) => {
-      const { [name]: _removed, ...rest } = prev;
+      const { [name]: _, ...rest } = prev;
       return rest;
     });
   };
@@ -116,6 +116,12 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
     }
   };
 
+  const renderError = (value: string | string[] | undefined): string => {
+    if (Array.isArray(value)) return value.join(" ");
+    if (typeof value === "string") return value;
+    return "";
+  };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -150,7 +156,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                 <form onSubmit={handleSubmit} className="space-y-4 text-slate-100 font-semibold">
                   {errors.non_field_errors && (
                     <p className="text-red-400 text-sm mt-1 text-center">
-                      {errors.non_field_errors.join(" ")}
+                      {renderError(errors.non_field_errors)}
                     </p>
                   )}
 
@@ -164,7 +170,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                       className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none
                         ${errors.title ? 'border-red-500' : 'border-cyan-400'}`}
                     />
-                    {errors.title && <p className="text-red-400 text-sm mt-1">{errors.title}</p>}
+                    {errors.title && <p className="text-red-400 text-sm mt-1">{renderError(errors.title)}</p>}
                   </div>
 
                   <div>
@@ -177,7 +183,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                       className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none
                         ${errors.tech_stack ? 'border-red-500' : 'border-cyan-400'}`}
                     />
-                    {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{errors.tech_stack}</p>}
+                    {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{renderError(errors.tech_stack)}</p>}
                   </div>
 
                   <div>
@@ -224,7 +230,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                         className={`mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none
                           ${errors.start_date ? 'border-red-500' : 'border-cyan-400'}`}
                       />
-                      {errors.start_date && <p className="text-red-400 text-sm mt-1">{errors.start_date}</p>}
+                      {errors.start_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.start_date)}</p>}
                     </div>
 
                     {form.status === "Completed" && (
@@ -235,10 +241,10 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                           name="end_date"
                           value={form.end_date || ""}
                           onChange={handleChange}
-                          className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none
-                            ${errors.end_date ? 'border-red-500' : 'border-cyan-400'}`}
+                          className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none ${
+                            errors.end_date ? 'border-red-500' : 'border-cyan-400'}`}
                         />
-                        {errors.end_date && <p className="text-red-400 text-sm mt-1">{errors.end_date}</p>}
+                        {errors.end_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.end_date)}</p>}
                       </div>
                     )}
                   </div>
@@ -267,7 +273,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                       className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none
                         ${errors.description ? 'border-red-500' : 'border-cyan-400'}`}
                     ></textarea>
-                    {errors.description && <p className="text-red-400 text-sm mt-1">{errors.description}</p>}
+                    {errors.description && <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>}
                   </div>
 
                   <div className="flex justify-between mt-6">
