@@ -27,3 +27,7 @@ body {
   max-width: 100vw;
   background-color: #2a7d7e; 
 }
+
+button:hover {
+  cursor: pointer;
+}

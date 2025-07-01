@@ -24,6 +24,21 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
   const [errors, setErrors] = useState<{ [key: string]: string | string[] }>({});
   const [saving, setSaving] = useState(false);
 
+  const resetForm = () => {
+    setForm({
+      title: "",
+      description: "",
+      tech_stack: "",
+      github_backend_url: "",
+      github_frontend_url: "",
+      live_url: "",
+      start_date: "",
+      end_date: "",
+      status: "In Progress",
+    });
+    setErrors({});
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -82,18 +97,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
           : null
       });
       await onProjectAdded();
-      setForm({
-        title: "",
-        description: "",
-        tech_stack: "",
-        github_backend_url: "",
-        github_frontend_url: "",
-        live_url: "",
-        start_date: "",
-        end_date: "",
-        status: "In Progress",
-      });
-      setErrors({});
+      resetForm();
       alert("Project added successfully.");
     } catch (err: unknown) {
       console.error("Add project failed:", err);
@@ -247,11 +251,19 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
         {errors.description && <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>}
       </div>
 
-      <div className="text-center mt-6">
+      <div className="flex justify-between mt-6">
+        <button
+          type="button"
+          onClick={resetForm}
+          disabled={saving}
+          className="border border-yellow-400 text-yellow-400 px-6 py-2 rounded hover:bg-yellow-200/20 transition cursor-pointer"
+        >
+          Cancel
+        </button>
         <button
           type="submit"
           disabled={saving}
-          className="border border-cyan-400 px-6 py-2 rounded hover:bg-cyan-200/20 transition"
+          className="border border-cyan-400 px-6 py-2 rounded hover:bg-cyan-200/20 transition cursor-pointer"
         >
           {saving ? "Saving..." : "Add Project"}
         </button>
