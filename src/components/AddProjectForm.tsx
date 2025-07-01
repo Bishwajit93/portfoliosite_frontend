@@ -37,7 +37,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
       }));
       if (value !== "Completed") {
         setErrors((prev) => {
-          const { end_date, ...rest } = prev;
+          const { end_date: _end_date, ...rest } = prev;
           return rest;
         });
       }
@@ -46,7 +46,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     }
 
     setErrors((prev) => {
-      const { [name]: removed, ...rest } = prev;
+      const { [name]: _removed, ...rest } = prev;
       return rest;
     });
   };
@@ -93,10 +93,11 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
       });
       setErrors({});
       alert("Project added successfully.");
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Add project failed:", err);
-      if (err.start_date || err.end_date || err.title || err.non_field_errors) {
-        setErrors(err);
+      if (typeof err === "object" && err !== null &&
+        ("start_date" in err || "end_date" in err || "title" in err || "non_field_errors" in err)) {
+        setErrors(err as { [key: string]: string[] });
       } else {
         alert("Failed to add project.");
       }

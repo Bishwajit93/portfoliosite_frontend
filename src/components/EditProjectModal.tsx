@@ -25,7 +25,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
     status: "In Progress"
   });
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<{ [key: string]: any }>({});
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
       }));
       if (value !== "Completed") {
         setErrors((prev) => {
-          const { end_date, ...rest } = prev;
+          const { end_date: _end_date, ...rest } = prev;
           return rest;
         });
       }
@@ -64,7 +64,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
     }
 
     setErrors((prev) => {
-      const { [name]: removed, ...rest } = prev;
+      const { [name]: _removed, ...rest } = prev;
       return rest;
     });
   };
@@ -103,9 +103,14 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
       });
       await onProjectUpdated();
       onClose();
-    } catch (err) {
-      console.error(err);
-      alert("Failed to update project.");
+    } catch (err: unknown) {
+      console.error("Update project failed:", err);
+      if (typeof err === "object" && err !== null &&
+        ("start_date" in err || "end_date" in err || "title" in err || "non_field_errors" in err)) {
+        setErrors(err as { [key: string]: string[] });
+      } else {
+        alert("Failed to update project.");
+      }
     } finally {
       setSaving(false);
     }
@@ -143,6 +148,12 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                 </Dialog.Title>
 
                 <form onSubmit={handleSubmit} className="space-y-4 text-slate-100 font-semibold">
+                  {errors.non_field_errors && (
+                    <p className="text-red-400 text-sm mt-1 text-center">
+                      {errors.non_field_errors.join(" ")}
+                    </p>
+                  )}
+
                   <div>
                     <label className="block text-sm">Title</label>
                     <input
@@ -210,8 +221,10 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                         name="start_date"
                         value={form.start_date || ""}
                         onChange={handleChange}
-                        className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
+                        className={`mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none
+                          ${errors.start_date ? 'border-red-500' : 'border-cyan-400'}`}
                       />
+                      {errors.start_date && <p className="text-red-400 text-sm mt-1">{errors.start_date}</p>}
                     </div>
 
                     {form.status === "Completed" && (
