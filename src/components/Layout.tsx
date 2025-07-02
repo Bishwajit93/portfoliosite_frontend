@@ -21,40 +21,39 @@ export default function Layout({ children }: Props) {
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
-      {/* Header */}
-      <header className="bg-cyan-950 bg-opacity-90 px-4 py-3 fixed top-0 w-full backdrop-blur-md z-50 text-cyan-100">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-          <Link href="/" className="text-lg sm:text-xl font-bold hover:underline">
+      <header className="bg-cyan-900/30 shadow-lg shadow-cyan-400/10 border-b border-cyan-400/20 
+        px-6 py-3 fixed top-0 w-full backdrop-blur-2xl z-50 text-cyan-100 rounded-b-xl">
+        <div className="max-w-5xl mx-auto flex flex-wrap justify-center sm:justify-between items-center gap-2 sm:gap-4">
+          <Link href="/" className="text-xl font-extrabold tracking-wide whitespace-nowrap glow-text">
             Bishwajit Karmaker
           </Link>
-          <nav className="flex flex-wrap justify-center gap-2 sm:gap-4">
+          <nav className="flex flex-wrap justify-center gap-2 sm:gap-4 text-sm sm:text-base">
             {navLinks.map(({ href, label }) => {
               const isActive = pathname === href;
               return (
                 <Link
                   key={href}
                   href={href}
-                  className={`text-sm sm:text-base border px-3 py-1 rounded transition 
+                  className={`border px-3 py-1 rounded-lg transition whitespace-nowrap
                     ${isActive 
-                      ? "border-cyan-400 bg-cyan-200/20 text-cyan-300 font-bold backdrop-blur-sm"
-                      : "border-transparent hover:border-cyan-400 hover:bg-cyan-200/20 hover:text-cyan-300 hover:backdrop-blur-sm text-cyan-200"
+                      ? "border-cyan-400 bg-cyan-300/20 text-cyan-200 font-bold shadow-inner"
+                      : "border-transparent hover:border-cyan-400 hover:bg-cyan-200/10 hover:text-cyan-200"
                     }`}
                 >
                   {label}
-              </Link>
+                </Link>
               );
             })}
           </nav>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 w-full max-w-3xl mx-auto px-4 py-24">
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 py-28">
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-cyan-950 bg-opacity-90 px-4 py-3 text-center text-cyan-100 backdrop-blur-md">
+      <footer className="bg-cyan-900/30 shadow-inner shadow-cyan-400/10 border-t border-cyan-400/20 
+        px-6 py-3 text-center text-cyan-100 backdrop-blur-2xl rounded-t-xl">
         © {new Date().getFullYear()} Bishwajit Karmaker (Abdullah). All rights reserved.
       </footer>
     </div>
