@@ -23,7 +23,7 @@ export default function Layout({ children }: Props) {
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* Header */}
       <header className="bg-cyan-900/30 shadow-lg shadow-cyan-400/10 border-b border-cyan-400/20 
-        px-3 sm:px-6 py-2 sm:py-3 fixed top-0 w-full backdrop-blur-2xl z-50 text-cyan-100 rounded-b-xl">
+        px-3 sm:px-6 py-1 sm:py-3 fixed top-0 w-full backdrop-blur-2xl z-50 text-cyan-100 rounded-b-xl">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-1 sm:gap-4">
           <Link href="/" className="text-lg sm:text-xl font-extrabold tracking-wide whitespace-nowrap glow-text">
             Bishwajit Karmaker
@@ -50,7 +50,7 @@ export default function Layout({ children }: Props) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 w-full max-w-3xl mx-auto px-6 md:px-8 py-28">
+      <main className="flex-1 w-full max-w-3xl mx-auto px-6 md:px-8 py-36">
         {children}
       </main>
 
