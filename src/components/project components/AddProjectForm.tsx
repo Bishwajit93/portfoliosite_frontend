@@ -147,7 +147,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
           <input
             type={field.type}
             name={field.name}
-            value={(form as any)[field.name] || ""}
+            value={(form as Record<string, string>)[field.name] || ""}
             onChange={handleChange}
             className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100 
               ${errors[field.name] ? "border-red-500" : "border-cyan-400"}
