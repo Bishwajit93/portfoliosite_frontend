@@ -31,51 +31,52 @@ export default function ProjectCard({ project, onProjectUpdated }: Props) {
 
   return (
     <>
-      {/* Preview Card */}
       <div
         onClick={() => setDetailOpen(true)}
-        className="p-4 border border-cyan-400 rounded-lg hover:bg-cyan-200/10 transition relative cursor-pointer hover:scale-[1.03] hover:shadow-lg"
+        className="p-6 border border-cyan-400 rounded-2xl bg-cyan-400/5 
+          shadow-inner shadow-cyan-400/10 transition-all relative cursor-pointer 
+          hover:shadow-cyan-400/30 hover:bg-cyan-400/10 hover:scale-[1.02]"
         title="Click to view details"
       >
-        <h2 className="text-xl font-semibold mb-2">{project.title}</h2>
+        <h2 className="text-xl font-semibold mb-3 text-cyan-200">{project.title}</h2>
 
         <div className="space-y-1 text-sm">
-          <p><span className="font-bold">Status:</span> {project.status}</p>
-          {project.tech_stack && <p><span className="font-bold">Tech Stack:</span> {project.tech_stack}</p>}
-          {project.start_date && <p><span className="font-bold">Start:</span> {project.start_date}</p>}
+          <p><span className="font-bold text-cyan-300">Status:</span> {project.status}</p>
+          {project.tech_stack && <p><span className="font-bold text-cyan-300">Tech Stack:</span> {project.tech_stack}</p>}
+          {project.start_date && <p><span className="font-bold text-cyan-300">Start:</span> {project.start_date}</p>}
           {project.status === "Completed" && project.end_date && (
-            <p><span className="font-bold">End:</span> {project.end_date}</p>
+            <p><span className="font-bold text-cyan-300">End:</span> {project.end_date}</p>
           )}
           {project.github_backend_url && (
-            <p><span className="font-bold">GitHub Backend:</span> <a href={project.github_backend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_backend_url}</a></p>
+            <p><span className="font-bold text-cyan-300">GitHub Backend:</span> <a href={project.github_backend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_backend_url}</a></p>
           )}
           {project.github_frontend_url && (
-            <p><span className="font-bold">GitHub Frontend:</span> <a href={project.github_frontend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_frontend_url}</a></p>
+            <p><span className="font-bold text-cyan-300">GitHub Frontend:</span> <a href={project.github_frontend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_frontend_url}</a></p>
           )}
           {project.live_url && (
-            <p><span className="font-bold">Live:</span> <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="underline">{project.live_url}</a></p>
+            <p><span className="font-bold text-cyan-300">Live:</span> <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="underline">{project.live_url}</a></p>
           )}
           {project.description && (
-            <p
-              className="mt-2 line-clamp-3"
-              title={project.description}
-            >
-              <span className="font-bold">Description:</span> {project.description}
+            <p className="mt-2 line-clamp-3" title={project.description}>
+              <span className="font-bold text-cyan-300">Description:</span> {project.description}
             </p>
           )}
         </div>
 
-        {/* Buttons moved to bottom right */}
-        <div className="flex justify-end space-x-2 mt-4" onClick={e => e.stopPropagation()}>
+        <div className="flex justify-end space-x-3 mt-6" onClick={(e) => e.stopPropagation()}>
           <button
             onClick={() => setEditOpen(true)}
-            className="border border-cyan-400 px-3 py-1 rounded hover:bg-cyan-200/20 cursor-pointer transition"
+            className="border border-cyan-400 text-cyan-300 px-4 py-2 rounded-xl 
+              shadow-md shadow-cyan-400/20 bg-transparent
+              hover:bg-cyan-200/10 hover:shadow-cyan-400/30 transition-all"
           >
             Edit
           </button>
           <button
             onClick={() => setDeleteOpen(true)}
-            className="border border-red-400 text-red-300 px-3 py-1 rounded hover:bg-red-400/20 cursor-pointer transition"
+            className="border border-red-400 text-red-300 px-4 py-2 rounded-xl 
+              shadow-md shadow-red-400/20 bg-transparent
+              hover:bg-red-200/10 hover:shadow-red-400/30 transition-all"
           >
             Delete
           </button>
@@ -85,26 +86,25 @@ export default function ProjectCard({ project, onProjectUpdated }: Props) {
       {/* Detail Modal */}
       {isDetailOpen && (
         <Modal onClose={() => setDetailOpen(false)}>
-          <h2 className="text-2xl font-bold mb-4">{project.title}</h2>
+          <h2 className="text-2xl font-bold mb-4 text-cyan-200">{project.title}</h2>
           <div className="space-y-2 text-sm max-h-[60vh] overflow-y-auto">
-            <p><span className="font-bold">Status:</span> {project.status}</p>
-            {project.tech_stack && <p><span className="font-bold">Tech Stack:</span> {project.tech_stack}</p>}
-            {project.start_date && <p><span className="font-bold">Start:</span> {project.start_date}</p>}
+            <p><span className="font-bold text-cyan-300">Status:</span> {project.status}</p>
+            {project.tech_stack && <p><span className="font-bold text-cyan-300">Tech Stack:</span> {project.tech_stack}</p>}
+            {project.start_date && <p><span className="font-bold text-cyan-300">Start:</span> {project.start_date}</p>}
             {project.status === "Completed" && project.end_date && (
-              <p><span className="font-bold">End:</span> {project.end_date}</p>
+              <p><span className="font-bold text-cyan-300">End:</span> {project.end_date}</p>
             )}
-
             {project.github_backend_url && (
-              <p><span className="font-bold">GitHub Backend:</span> <a href={project.github_backend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_backend_url}</a></p>
+              <p><span className="font-bold text-cyan-300">GitHub Backend:</span> <a href={project.github_backend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_backend_url}</a></p>
             )}
             {project.github_frontend_url && (
-              <p><span className="font-bold">GitHub Frontend:</span> <a href={project.github_frontend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_frontend_url}</a></p>
+              <p><span className="font-bold text-cyan-300">GitHub Frontend:</span> <a href={project.github_frontend_url} target="_blank" rel="noopener noreferrer" className="underline">{project.github_frontend_url}</a></p>
             )}
             {project.live_url && (
-              <p><span className="font-bold">Live:</span> <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="underline">{project.live_url}</a></p>
+              <p><span className="font-bold text-cyan-300">Live:</span> <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="underline">{project.live_url}</a></p>
             )}
             {project.description && (
-              <p><span className="font-bold">Description:</span> {project.description}</p>
+              <p><span className="font-bold text-cyan-300">Description:</span> {project.description}</p>
             )}
           </div>
         </Modal>
@@ -118,7 +118,7 @@ export default function ProjectCard({ project, onProjectUpdated }: Props) {
         project={project}
       />
 
-      {/* Delete Confirmation Modal */}
+      {/* Delete Modal */}
       <ConfirmDeleteModal
         isOpen={isDeleteOpen}
         onClose={() => setDeleteOpen(false)}

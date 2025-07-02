@@ -95,7 +95,6 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
     if (!validate()) return;
 
     setSaving(true);
-
     try {
       await updateProject(project.id, {
         ...form,
@@ -150,114 +149,103 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-slate-900 border border-cyan-400 p-6 text-left shadow-xl transition-all">
-                <Dialog.Title className="text-lg font-bold text-cyan-300 mb-4">
-                  Edit Project
+              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl 
+                border border-cyan-400 p-8 text-left shadow-lg shadow-cyan-400/20 
+                backdrop-blur-xl bg-cyan-400/5 hover:bg-cyan-400/10 transition-all">
+                
+                <Dialog.Title className="text-2xl font-bold text-cyan-200 mb-6 text-center">
+                  ✍️ Edit Project
                 </Dialog.Title>
 
-                <form onSubmit={handleSubmit} className="space-y-4 text-slate-100 font-semibold">
+                <form onSubmit={handleSubmit} className="space-y-6 text-slate-100 font-semibold">
                   {errors.non_field_errors && (
-                    <p className="text-red-400 text-sm mt-1 text-center">
+                    <p className="text-red-400 text-sm text-center">
                       {renderError(errors.non_field_errors)}
                     </p>
                   )}
 
-                  <div>
-                    <label className="block text-sm">Title</label>
-                    <input
-                      type="text"
-                      name="title"
-                      value={form.title || ""}
-                      onChange={handleChange}
-                      className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none
-                        ${errors.title ? 'border-red-500' : 'border-cyan-400'}`}
-                    />
-                    {errors.title && <p className="text-red-400 text-sm mt-1">{renderError(errors.title)}</p>}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm">Tech Stack</label>
-                    <input
-                      type="text"
-                      name="tech_stack"
-                      value={form.tech_stack || ""}
-                      onChange={handleChange}
-                      className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none
-                        ${errors.tech_stack ? 'border-red-500' : 'border-cyan-400'}`}
-                    />
-                    {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{renderError(errors.tech_stack)}</p>}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm">GitHub Backend URL</label>
-                    <input
-                      type="url"
-                      name="github_backend_url"
-                      value={form.github_backend_url || ""}
-                      onChange={handleChange}
-                      className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm">GitHub Frontend URL</label>
-                    <input
-                      type="url"
-                      name="github_frontend_url"
-                      value={form.github_frontend_url || ""}
-                      onChange={handleChange}
-                      className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm">Live URL</label>
-                    <input
-                      type="url"
-                      name="live_url"
-                      value={form.live_url || ""}
-                      onChange={handleChange}
-                      className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
-                    />
-                  </div>
+                  {[
+                    { name: "title", label: "Title", type: "text" },
+                    { name: "tech_stack", label: "Tech Stack", type: "text" },
+                    { name: "github_backend_url", label: "GitHub Backend URL", type: "url" },
+                    { name: "github_frontend_url", label: "GitHub Frontend URL", type: "url" },
+                    { name: "live_url", label: "Live URL", type: "url" },
+                  ].map((field) => (
+                    <div key={field.name}>
+                      <label className="block text-sm font-semibold">{field.label}</label>
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        value={(form as any)[field.name] || ""}
+                        onChange={handleChange}
+                        className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100 
+                          ${errors[field.name] ? "border-red-500" : "border-cyan-400"}
+                          shadow-inner shadow-cyan-400/10
+                          hover:bg-cyan-200/10 hover:shadow-cyan-400/20
+                          focus:bg-cyan-300/10 focus:shadow-cyan-400/30
+                          outline-none transition-all`}
+                      />
+                      {errors[field.name] && (
+                        <p className="text-red-400 text-sm mt-1">
+                          {renderError(errors[field.name])}
+                        </p>
+                      )}
+                    </div>
+                  ))}
 
                   <div className="flex space-x-2">
                     <div className="flex-1">
-                      <label className="block text-sm">Start Date</label>
+                      <label className="block text-sm font-semibold">Start Date</label>
                       <input
                         type="date"
                         name="start_date"
                         value={form.start_date || ""}
                         onChange={handleChange}
-                        className={`mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none
-                          ${errors.start_date ? 'border-red-500' : 'border-cyan-400'}`}
+                        className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100
+                          ${errors.start_date ? "border-red-500" : "border-cyan-400"}
+                          shadow-inner shadow-cyan-400/10
+                          hover:bg-cyan-200/10 hover:shadow-cyan-400/20
+                          focus:bg-cyan-300/10 focus:shadow-cyan-400/30
+                          outline-none transition-all`}
                       />
-                      {errors.start_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.start_date)}</p>}
+                      {errors.start_date && (
+                        <p className="text-red-400 text-sm mt-1">{renderError(errors.start_date)}</p>
+                      )}
                     </div>
 
                     {form.status === "Completed" && (
                       <div className="flex-1">
-                        <label className="block text-sm">End Date</label>
+                        <label className="block text-sm font-semibold">End Date</label>
                         <input
                           type="date"
                           name="end_date"
                           value={form.end_date || ""}
                           onChange={handleChange}
-                          className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none ${
-                            errors.end_date ? 'border-red-500' : 'border-cyan-400'}`}
+                          className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100
+                            ${errors.end_date ? "border-red-500" : "border-cyan-400"}
+                            shadow-inner shadow-cyan-400/10
+                            hover:bg-cyan-200/10 hover:shadow-cyan-400/20
+                            focus:bg-cyan-300/10 focus:shadow-cyan-400/30
+                            outline-none transition-all`}
                         />
-                        {errors.end_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.end_date)}</p>}
+                        {errors.end_date && (
+                          <p className="text-red-400 text-sm mt-1">{renderError(errors.end_date)}</p>
+                        )}
                       </div>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm">Status</label>
+                    <label className="block text-sm font-semibold">Status</label>
                     <select
                       name="status"
                       value={form.status || "In Progress"}
                       onChange={handleChange}
-                      className="mt-1 w-full border border-cyan-400 rounded p-2 bg-transparent focus:outline-none"
+                      className="mt-1 w-full border border-cyan-400 rounded-xl p-3 bg-transparent 
+                        text-slate-100 shadow-inner shadow-cyan-400/10
+                        hover:bg-cyan-200/10 hover:shadow-cyan-400/20
+                        focus:bg-cyan-300/10 focus:shadow-cyan-400/30
+                        outline-none transition-all"
                     >
                       <option value="In Progress">In Progress</option>
                       <option value="Completed">Completed</option>
@@ -266,31 +254,43 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                   </div>
 
                   <div>
-                    <label className="block text-sm">Description</label>
+                    <label className="block text-sm font-semibold">Description</label>
                     <textarea
                       name="description"
-                      rows={3}
+                      rows={4}
                       value={form.description || ""}
                       onChange={handleChange}
-                      className={`mt-1 w-full border rounded p-2 bg-transparent focus:outline-none
-                        ${errors.description ? 'border-red-500' : 'border-cyan-400'}`}
-                    ></textarea>
-                    {errors.description && <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>}
+                      className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100 
+                        ${errors.description ? "border-red-500" : "border-cyan-400"}
+                        shadow-inner shadow-cyan-400/10
+                        hover:bg-cyan-200/10 hover:shadow-cyan-400/20
+                        focus:bg-cyan-300/10 focus:shadow-cyan-400/30
+                        outline-none transition-all`}
+                    />
+                    {errors.description && (
+                      <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>
+                    )}
                   </div>
 
-                  <div className="flex justify-between mt-6">
+                  <div className="flex justify-between mt-8">
                     <button
                       type="button"
                       onClick={onClose}
                       disabled={saving}
-                      className="border border-gray-600 px-6 py-2 rounded hover:bg-gray-700 transition"
+                      className="border border-yellow-400 text-yellow-300 px-6 py-2 rounded-xl
+                        shadow-md shadow-yellow-400/20 bg-transparent
+                        hover:bg-yellow-200/10 hover:shadow-yellow-400/30
+                        transition-all"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={saving}
-                      className="border border-cyan-400 px-6 py-2 rounded hover:bg-cyan-200/20 transition"
+                      className="border border-cyan-400 text-cyan-300 px-6 py-2 rounded-xl
+                        shadow-md shadow-cyan-400/20 bg-transparent
+                        hover:bg-cyan-200/10 hover:shadow-cyan-400/30
+                        transition-all"
                     >
                       {saving ? "Saving..." : "Save Changes"}
                     </button>
