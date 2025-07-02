@@ -31,13 +31,14 @@ export default function ProjectCard({ project, onProjectUpdated }: Props) {
 
   return (
     <>
-      <div
-        onClick={() => setDetailOpen(true)}
-        className="p-6 border border-cyan-400 rounded-2xl bg-cyan-400/5 
-          shadow-inner shadow-cyan-400/10 transition-all relative cursor-pointer 
-          hover:shadow-cyan-400/30 hover:bg-cyan-400/10 hover:scale-[1.02]"
-        title="Click to view details"
-      >
+        <div
+          onClick={() => setDetailOpen(true)}
+          className="p-3 sm:p-4 border border-cyan-400 rounded-xl 
+            hover:bg-cyan-200/10 hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-400/20 
+            transition relative cursor-pointer mt-4"
+          title="Click to view details"
+        >
+
         <h2 className="text-xl font-semibold mb-3 text-cyan-200">{project.title}</h2>
 
         <div className="space-y-1 text-sm">

@@ -121,9 +121,9 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 p-8 border border-cyan-400 rounded-xl text-slate-100 
-        font-semibold shadow-lg shadow-cyan-400/20 backdrop-blur-lg
-        bg-cyan-400/5 hover:bg-cyan-400/10 transition-all"
+      className="space-y-4 sm:space-y-6 p-4 sm:p-6 border border-cyan-400 rounded-xl 
+        text-slate-100 font-semibold shadow-inner shadow-cyan-400/10 
+        hover:shadow-cyan-400/20 transition"
     >
       <h2 className="text-2xl font-bold mb-4 text-center text-cyan-200">
         🚀 Add New Project
