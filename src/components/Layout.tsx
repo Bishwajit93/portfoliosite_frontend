@@ -50,7 +50,7 @@ export default function Layout({ children }: Props) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 w-full max-w-3xl mx-auto px-3 sm:px-4 py-28">
+      <main className="flex-1 w-full max-w-3xl mx-auto px-6 md:px-8 py-28">
         {children}
       </main>
 
