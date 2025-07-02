@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { Project } from "@/types/project";
 import { fetchProjects } from "@/lib/api/projectApi";
-import AddProjectForm from "@/components/AddProjectForm";
-import ProjectCard from "@/components/ProjectCard";
+import AddProjectForm from "@/components/project components/AddProjectForm";
+import ProjectCard from "@/components/project components/ProjectCard";
 import Layout from "@/components/Layout";
 
 export default function ProjectsPage() {

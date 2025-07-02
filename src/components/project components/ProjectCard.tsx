@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Project } from "@/types/project";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import EditProjectModal from "./EditProjectModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import { deleteProject } from "@/lib/api/projectApi";
