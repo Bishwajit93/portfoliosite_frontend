@@ -33,9 +33,10 @@ export default function ProjectCard({ project, onProjectUpdated }: Props) {
     <>
         <div
           onClick={() => setDetailOpen(true)}
-          className="p-3 sm:p-4 border border-cyan-400 rounded-xl 
-            hover:bg-cyan-200/10 hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-400/20 
-            transition relative cursor-pointer mt-4"
+          className="border border-cyan-400 text-cyan-300 p-4 rounded-xl 
+            shadow-md shadow-cyan-400/20 bg-transparent
+            hover:bg-cyan-200/10 hover:shadow-lg hover:shadow-cyan-400/40 
+            transition-all cursor-pointer"
           title="Click to view details"
         >
 
