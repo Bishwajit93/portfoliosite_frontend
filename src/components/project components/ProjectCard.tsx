@@ -31,15 +31,15 @@ export default function ProjectCard({ project, onProjectUpdated }: Props) {
 
   return (
     <>
-        <div
-          onClick={() => setDetailOpen(true)}
-          className="border border-cyan-400 text-cyan-300 p-4 rounded-xl 
-            shadow-md shadow-cyan-400/20 bg-transparent
-            hover:bg-cyan-200/10 hover:shadow-lg hover:shadow-cyan-400/40 
-            transition-all cursor-pointer"
-          title="Click to view details"
+      <div
+        onClick={() => setDetailOpen(true)}
+        className="border border-cyan-400 text-cyan-300 
+          px-3 py-3 sm:px-4 sm:py-4 rounded-xl 
+          shadow-md shadow-cyan-400/20 bg-transparent
+          hover:bg-cyan-200/10 hover:shadow-cyan-400/30 
+          backdrop-blur-xl transition-all cursor-pointer
+          text-sm sm:text-base"
         >
-
         <h2 className="text-xl font-semibold mb-3 text-cyan-200">{project.title}</h2>
 
         <div className="space-y-1 text-sm">
