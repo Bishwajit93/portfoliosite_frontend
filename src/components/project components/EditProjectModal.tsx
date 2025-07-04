@@ -46,7 +46,6 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-
     if (name === "status") {
       setForm((prev) => ({
         ...prev,
@@ -63,7 +62,6 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
-
     setErrors((prev) => {
       const newErrors = { ...prev };
       delete newErrors[name];
@@ -73,11 +71,9 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
-
     if (!form.title.trim()) newErrors.title = "Title is required.";
     if (!form.tech_stack.trim()) newErrors.tech_stack = "Tech stack is required.";
     if (!form.description.trim()) newErrors.description = "Description is required.";
-
     if (form.status === "Completed") {
       if (!form.end_date) {
         newErrors.end_date = "End date is required when status is Completed.";
@@ -85,7 +81,6 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
         newErrors.end_date = "End date cannot be before start date.";
       }
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -98,9 +93,7 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
     try {
       await updateProject(project.id, {
         ...form,
-        end_date: form.status === "Completed"
-          ? (form.end_date || null)
-          : null
+        end_date: form.status === "Completed" ? (form.end_date || null) : null
       });
       await onProjectUpdated();
       onClose();
@@ -135,7 +128,8 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm" />
+          {/* ✅ Only dark overlay, no blur */}
+          <div className="fixed inset-0 bg-black bg-opacity-50" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -149,104 +143,72 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl 
-                border border-cyan-400 p-8 text-left shadow-lg shadow-cyan-400/20 
-                backdrop-blur-xl bg-cyan-400/5 hover:bg-cyan-400/10 transition-all">
+              {/* ✅ Fully transparent modal container with rounded corners */}
+              <Dialog.Panel className="w-full max-w-2xl rounded-2xl overflow-hidden bg-transparent border-none shadow-none">
                 
-                <Dialog.Title className="text-2xl font-bold text-cyan-200 mb-6 text-center">
-                  ✍️ Edit Project
-                </Dialog.Title>
+                {/* ✅ Your glowing cyan form same as contact & add form */}
+                <form
+                  onSubmit={handleSubmit}
+                  className="w-full p-8 rounded-2xl border border-cyan-400 
+                    text-slate-100 font-semibold shadow-[0_0_25px_rgba(34,211,238,0.2)] 
+                    backdrop-blur-lg bg-transparent transition-all"
+                  >
+                  <Dialog.Title className="text-3xl font-bold text-cyan-100 mb-6 text-center">
+                    ✍️ Edit Project
+                  </Dialog.Title>
 
-                <form onSubmit={handleSubmit} className="space-y-6 text-slate-100 font-semibold">
                   {errors.non_field_errors && (
                     <p className="text-red-400 text-sm text-center">
                       {renderError(errors.non_field_errors)}
                     </p>
                   )}
 
-                  {[
-                    { name: "title", label: "Title", type: "text" },
-                    { name: "tech_stack", label: "Tech Stack", type: "text" },
-                    { name: "github_backend_url", label: "GitHub Backend URL", type: "url" },
-                    { name: "github_frontend_url", label: "GitHub Frontend URL", type: "url" },
-                    { name: "live_url", label: "Live URL", type: "url" },
-                  ].map((field) => (
-                    <div key={field.name}>
-                      <label className="block text-sm font-semibold">{field.label}</label>
-                      <input
-                        type={field.type}
-                        name={field.name}
-                        value={(form as Record<string, string>)[field.name] || ""}
-                        onChange={handleChange}
-                        className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100 
-                          ${errors[field.name] ? "border-red-500" : "border-cyan-400"}
-                          shadow-inner shadow-cyan-400/10
-                          hover:bg-cyan-200/10 hover:shadow-cyan-400/20
-                          focus:bg-cyan-300/10 focus:shadow-cyan-400/30
-                          outline-none transition-all`}
-                      />
-                      {errors[field.name] && (
-                        <p className="text-red-400 text-sm mt-1">
-                          {renderError(errors[field.name])}
-                        </p>
-                      )}
-                    </div>
-                  ))}
+                  <div>
+                    <label>Title</label>
+                    <input type="text" name="title" value={form.title || ""} onChange={handleChange} />
+                    {errors.title && <p className="text-red-400 text-sm mt-1">{renderError(errors.title)}</p>}
+                  </div>
+
+                  <div>
+                    <label>Tech Stack</label>
+                    <input type="text" name="tech_stack" value={form.tech_stack || ""} onChange={handleChange} />
+                    {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{renderError(errors.tech_stack)}</p>}
+                  </div>
+
+                  <div>
+                    <label>GitHub Backend URL</label>
+                    <input type="url" name="github_backend_url" value={form.github_backend_url || ""} onChange={handleChange} />
+                  </div>
+
+                  <div>
+                    <label>GitHub Frontend URL</label>
+                    <input type="url" name="github_frontend_url" value={form.github_frontend_url || ""} onChange={handleChange} />
+                  </div>
+
+                  <div>
+                    <label>Live URL</label>
+                    <input type="url" name="live_url" value={form.live_url || ""} onChange={handleChange} />
+                  </div>
 
                   <div className="flex space-x-2">
                     <div className="flex-1">
-                      <label className="block text-sm font-semibold">Start Date</label>
-                      <input
-                        type="date"
-                        name="start_date"
-                        value={form.start_date || ""}
-                        onChange={handleChange}
-                        className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100
-                          ${errors.start_date ? "border-red-500" : "border-cyan-400"}
-                          shadow-inner shadow-cyan-400/10
-                          hover:bg-cyan-200/10 hover:shadow-cyan-400/20
-                          focus:bg-cyan-300/10 focus:shadow-cyan-400/30
-                          outline-none transition-all`}
-                      />
-                      {errors.start_date && (
-                        <p className="text-red-400 text-sm mt-1">{renderError(errors.start_date)}</p>
-                      )}
+                      <label>Start Date</label>
+                      <input type="date" name="start_date" value={form.start_date || ""} onChange={handleChange} />
+                      {errors.start_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.start_date)}</p>}
                     </div>
 
                     {form.status === "Completed" && (
                       <div className="flex-1">
-                        <label className="block text-sm font-semibold">End Date</label>
-                        <input
-                          type="date"
-                          name="end_date"
-                          value={form.end_date || ""}
-                          onChange={handleChange}
-                          className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100
-                            ${errors.end_date ? "border-red-500" : "border-cyan-400"}
-                            shadow-inner shadow-cyan-400/10
-                            hover:bg-cyan-200/10 hover:shadow-cyan-400/20
-                            focus:bg-cyan-300/10 focus:shadow-cyan-400/30
-                            outline-none transition-all`}
-                        />
-                        {errors.end_date && (
-                          <p className="text-red-400 text-sm mt-1">{renderError(errors.end_date)}</p>
-                        )}
+                        <label>End Date</label>
+                        <input type="date" name="end_date" value={form.end_date || ""} onChange={handleChange} />
+                        {errors.end_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.end_date)}</p>}
                       </div>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold">Status</label>
-                    <select
-                      name="status"
-                      value={form.status || "In Progress"}
-                      onChange={handleChange}
-                      className="mt-1 w-full border border-cyan-400 rounded-xl p-3 bg-transparent 
-                        text-slate-100 shadow-inner shadow-cyan-400/10
-                        hover:bg-cyan-200/10 hover:shadow-cyan-400/20
-                        focus:bg-cyan-300/10 focus:shadow-cyan-400/30
-                        outline-none transition-all"
-                    >
+                    <label>Status</label>
+                    <select name="status" value={form.status || ""} onChange={handleChange}>
                       <option value="In Progress">In Progress</option>
                       <option value="Completed">Completed</option>
                       <option value="Paused">Paused</option>
@@ -254,48 +216,25 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold">Description</label>
-                    <textarea
-                      name="description"
-                      rows={4}
-                      value={form.description || ""}
-                      onChange={handleChange}
-                      className={`mt-1 w-full border rounded-xl p-3 bg-transparent text-slate-100 
-                        ${errors.description ? "border-red-500" : "border-cyan-400"}
-                        shadow-inner shadow-cyan-400/10
-                        hover:bg-cyan-200/10 hover:shadow-cyan-400/20
-                        focus:bg-cyan-300/10 focus:shadow-cyan-400/30
-                        outline-none transition-all`}
-                    />
-                    {errors.description && (
-                      <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>
-                    )}
+                    <label>Description</label>
+                    <textarea name="description" rows={4} value={form.description || ""} onChange={handleChange}></textarea>
+                    {errors.description && <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>}
                   </div>
 
                   <div className="flex justify-between mt-8">
-                    <button
-                      type="button"
-                      onClick={onClose}
-                      disabled={saving}
-                      className="border border-yellow-400 text-yellow-300 px-6 py-2 rounded-xl
-                        shadow-md shadow-yellow-400/20 bg-transparent
-                        hover:bg-yellow-200/10 hover:shadow-yellow-400/30
-                        transition-all"
-                    >
+                    <button type="button" onClick={onClose} disabled={saving} className="border border-yellow-400 text-yellow-300 px-6 py-2 rounded-xl
+                      shadow-md shadow-yellow-400/20 bg-transparent
+                      hover:bg-yellow-200/10 hover:shadow-yellow-400/30 transition-all">
                       Cancel
                     </button>
-                    <button
-                      type="submit"
-                      disabled={saving}
-                      className="border border-cyan-400 text-cyan-300 px-6 py-2 rounded-xl
-                        shadow-md shadow-cyan-400/20 bg-transparent
-                        hover:bg-cyan-200/10 hover:shadow-cyan-400/30
-                        transition-all"
-                    >
+                    <button type="submit" disabled={saving} className="border border-cyan-400 text-cyan-300 px-6 py-2 rounded-xl
+                      shadow-md shadow-cyan-400/20 bg-transparent
+                      hover:bg-cyan-200/10 hover:shadow-cyan-400/30 transition-all">
                       {saving ? "Saving..." : "Save Changes"}
                     </button>
                   </div>
                 </form>
+
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -1,24 +1,31 @@
-// app/contact/page.tsx
 'use client';
 
 import Layout from '@/components/Layout';
 import ContactForm from '@/components/ContactForm';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 export default function ContactPage() {
   return (
     <Layout>
-      <div 
-        className="text-blue-100 min-h-screen flex flex-col items-center px-4">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-          Contact Bishwajit Karmaker
+      <main className="max-w-4xl mx-auto p-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 text-cyan-200">
+          Get in Touch
         </h1>
-        <p className="text-center max-w-xl mb-8">
-          I would love to hear from you. Whether it is about a project, collaboration, or feedback — please leave your message below and I will get back to you shortly.
-        </p>
 
-        {/* Contact Form */}
+        <div className="flex justify-center space-x-6 mb-8 text-cyan-300 text-3xl">
+          <a href="https://github.com/Bishwajit93" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition">
+            <FaGithub />
+          </a>
+          <a href="https://www.linkedin.com/in/bishwajit-karmaker/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition">
+            <FaLinkedin />
+          </a>
+          <a href="mailto:bish.karm123@gmail.com" className="hover:text-cyan-400 transition">
+            <FaEnvelope />
+          </a>
+        </div>
+
         <ContactForm />
-      </div>
+      </main>
     </Layout>
   );
 }

@@ -26,7 +26,7 @@ export default function ContactForm() {
 
       {/* FIRST NAME */}
       <div>
-        <label htmlFor="firstName" className="block text-sm font-semibold mb-1">
+        <label htmlFor="firstName" className="block text-sm font-semibold">
           First Name
         </label>
         <input
@@ -45,7 +45,7 @@ export default function ContactForm() {
 
       {/* LAST NAME */}
       <div>
-        <label htmlFor="lastName" className="block text-sm font-semibold mb-1">
+        <label htmlFor="lastName" className="block text-sm font-semibold mt-2">
           Last Name
         </label>
         <input
@@ -64,7 +64,7 @@ export default function ContactForm() {
 
       {/* EMAIL */}
       <div>
-        <label htmlFor="email" className="block text-sm font-semibold mb-1">
+        <label htmlFor="email" className="block text-sm font-semibold mt-2">
           Email Address
         </label>
         <input
@@ -83,7 +83,7 @@ export default function ContactForm() {
 
       {/* SUBJECT */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-semibold mb-1">
+        <label htmlFor="subject" className="block text-sm font-semibold mt-2">
           Subject
         </label>
         <input
@@ -102,7 +102,7 @@ export default function ContactForm() {
 
       {/* MESSAGE */}
       <div>
-        <label htmlFor="message" className="block text-sm font-semibold mb-1">
+        <label htmlFor="message" className="block text-sm font-semibold mt-2">
           Your Message
         </label>
         <textarea
