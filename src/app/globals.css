@@ -26,22 +26,55 @@ body::before {
   position: fixed;
   inset: 0;
   background: radial-gradient(circle, rgba(0,255,255,0.12) 1px, transparent 1px);
-  background-size: 60px 60px;
-  animation: moveGrid 40s linear infinite;
+  background-size: 40px 40px;
+  animation: driftGrid 15s linear infinite;
   pointer-events: none;
   z-index: 0;
 }
+
+@keyframes driftGrid {
+  0% { background-position: 0 0; }
+  50% { background-position: 100px 100px; }
+  100% { background-position: 0 0; }
+}
+
 
 /* subtle flowing gradient layer */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  background: linear-gradient(45deg, rgba(0,255,255,0.05), rgba(255,0,255,0.05), rgba(0,255,255,0.05));
+  background: linear-gradient(135deg,
+    rgba(0, 255, 255, 0.12),
+    rgba(100, 0, 200, 0.15),
+    rgba(0, 150, 255, 0.12),
+    rgba(0, 255, 255, 0.12)
+  );
   background-size: 200% 200%;
-  animation: flowGradient 30s linear infinite;
+  animation: slowMove 40s ease infinite;
   pointer-events: none;
   z-index: 0;
+}
+
+@keyframes slowMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
+
+
+@keyframes rotateConic {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
+@keyframes rotateGrid {
+  from { transform: translate(-50%, -50%) rotate(0deg) scale(1.2); }
+  to   { transform: translate(-50%, -50%) rotate(360deg) scale(1.2); }
 }
 
 /* central pulse rings */
