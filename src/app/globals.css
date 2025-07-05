@@ -160,11 +160,27 @@ form {
   transition: all 0.4s ease;
   width: 92%;
   max-width: 100%;
+  position: relative;
+  margin-bottom: 8rem;
 }
 form:hover {
   background: rgba(8,145,178,0.06);
   box-shadow: inset 0 0 14px rgba(34,211,238,0.3), 0 0 18px rgba(34,211,238,0.5);
 }
+
+form::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 30px;
+  background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  pointer-events: none;
+}
+
+
 form input,
 form textarea,
 form select {
@@ -259,4 +275,14 @@ form {
     height: 150%;
     opacity: 0.05;
   }
+}
+
+main, section, .page-container {
+  background: rgba(8,145,178,0.04);
+  border: 1px solid rgba(34,211,238,0.2);
+  box-shadow: inset 0 0 10px rgba(34,211,238,0.1), 0 0 10px rgba(34,211,238,0.2);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  padding: 2rem;
+  margin: 2rem;
 }
