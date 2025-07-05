@@ -224,3 +224,39 @@ button {
 button:focus {
   outline: none;
 }
+
+
+form {
+  min-height: auto;
+  display: block;
+  justify-content: unset;
+}
+
+/* Tablets and up */
+@media (min-width: 640px) {
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80vh;
+    width: 85%;
+    max-width: 36rem;
+    margin: 0 auto;
+  }
+}
+
+/* Desktops and up */
+@media (min-width: 1024px) {
+  form {
+    max-width: 48rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 639px) {
+  body::after::after {
+    width: 150%;
+    height: 150%;
+    opacity: 0.05;
+  }
+}
