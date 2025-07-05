@@ -13,9 +13,11 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-y: auto;
   max-width: 100vw;
   position: relative;
   background: var(--background);
+  z-index: 1;
 }
 
 /* ========= OUT OF THE WORLD BACKGROUND ========= */
@@ -58,7 +60,8 @@ body::after::after {
   position: fixed;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 200%; height: 200%;
+  width: 200%;
+  height: 200%;
   background: radial-gradient(circle, rgba(0,255,255,0.08) 0%, transparent 70%);
   border-radius: 50%;
   animation: pulse 8s infinite ease-in-out;
@@ -81,6 +84,8 @@ body::after::after {
   box-shadow: inset 0 0 14px rgba(34,211,238,0.3), 0 0 14px rgba(34,211,238,0.5);
   background: rgba(34,211,238,0.05);
 }
+
+/* ========= BUTTONS ========= */
 .glow-button {
   background: transparent;
   border: 1px solid rgba(34,211,238,0.4);
@@ -95,6 +100,8 @@ body::after::after {
 .glow-button:hover {
   color: #67e8f9;
 }
+
+/* DELETE red version */
 .glow-button.delete {
   border-color: rgba(239,68,68,0.4);
   color: #fca5a5;
@@ -153,7 +160,6 @@ form {
   transition: all 0.4s ease;
   width: 92%;
   max-width: 100%;
-  position: relative;
 }
 form:hover {
   background: rgba(8,145,178,0.06);
@@ -194,10 +200,7 @@ form label {
   color: var(--foreground);
 }
 
-/* ========= RESPONSIVE FORMS ========= */
-@media (max-width: 639px) {
-  form { width: 92%; max-width: 90%; padding: 1.5rem; }
-}
+/* Responsive form width */
 @media (min-width: 640px) {
   form { width: 85%; max-width: 36rem; }
 }
@@ -205,6 +208,19 @@ form label {
   form { width: 100%; max-width: 48rem; }
 }
 
-/* ========= GLOBAL BUTTON & FOCUS ========= */
-button { cursor: pointer; }
-button:focus { outline: none; }
+/* Smaller radial pulse on mobile */
+@media (max-width: 640px) {
+  body::after::after {
+    width: 100%;
+    height: 100%;
+    opacity: 0.04;
+  }
+}
+
+/* Fix form centering on small screens */
+@media (max-width: 639px) {
+  form {
+    min-height: auto;
+    justify-content: start;
+  }
+}
