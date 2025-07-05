@@ -18,7 +18,11 @@ html, body {
   position: relative;
   background: var(--background);
   z-index: 1;
+
+  overscroll-behavior: none;
+  background-attachment: fixed;
 }
+
 
 /* ========= OUT OF THE WORLD BACKGROUND ========= */
 body::before {
@@ -224,3 +228,4 @@ form label {
     justify-content: start;
   }
 }
+
