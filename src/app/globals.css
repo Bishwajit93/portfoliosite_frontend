@@ -222,3 +222,12 @@ form {
     max-width: 48rem; /* ~768px */
   }
 }
+
+
+/* ========= ENSURE FORM DOES NOT LEAVE DARK AREA ========= */
+form {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
