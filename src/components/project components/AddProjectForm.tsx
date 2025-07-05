@@ -43,7 +43,6 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
     if (name === "status") {
       setForm((prev) => ({
         ...prev,
@@ -60,7 +59,6 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
-
     setErrors((prev) => {
       const newErrors = { ...prev };
       delete newErrors[name];
@@ -92,9 +90,7 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
     try {
       await createProject({
         ...form,
-        end_date: form.status === "Completed"
-          ? (form.end_date || null)
-          : null
+        end_date: form.status === "Completed" ? (form.end_date || null) : null
       });
       await onProjectAdded();
       resetForm();
@@ -119,79 +115,83 @@ export default function AddProjectForm({ onProjectAdded }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className="text-2xl font-bold mb-4 text-center">🚀 Add New Project</h2>
+    <div className="w-full px-4 sm:px-6 md:px-8 flex justify-center">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md md:max-w-lg lg:max-w-xl"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center">🚀 Add New Project</h2>
 
-      {errors.non_field_errors && (
-        <p className="text-red-400 text-sm text-center">
-          {renderError(errors.non_field_errors)}
-        </p>
-      )}
+        {errors.non_field_errors && (
+          <p className="text-red-400 text-sm text-center mb-2">
+            {renderError(errors.non_field_errors)}
+          </p>
+        )}
 
-      <div>
-        <label>Title</label>
-        <input type="text" name="title" value={form.title || ""} onChange={handleChange} />
-        {errors.title && <p className="text-red-400 text-sm mt-1">{renderError(errors.title)}</p>}
-      </div>
-
-      <div>
-        <label>Tech Stack</label>
-        <input type="text" name="tech_stack" value={form.tech_stack || ""} onChange={handleChange} />
-        {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{renderError(errors.tech_stack)}</p>}
-      </div>
-
-      <div>
-        <label>GitHub Backend URL</label>
-        <input type="url" name="github_backend_url" value={form.github_backend_url || ""} onChange={handleChange} />
-      </div>
-
-      <div>
-        <label>GitHub Frontend URL</label>
-        <input type="url" name="github_frontend_url" value={form.github_frontend_url || ""} onChange={handleChange} />
-      </div>
-
-      <div>
-        <label>Live URL</label>
-        <input type="url" name="live_url" value={form.live_url || ""} onChange={handleChange} />
-      </div>
-
-      <div className="flex space-x-2">
-        <div className="flex-1">
-          <label>Start Date</label>
-          <input type="date" name="start_date" value={form.start_date || ""} onChange={handleChange} />
-          {errors.start_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.start_date)}</p>}
+        <div><label>Title</label>
+          <input type="text" name="title" value={form.title || ""} onChange={handleChange} />
+          {errors.title && <p className="text-red-400 text-sm mt-1">{renderError(errors.title)}</p>}
         </div>
 
-        {form.status === "Completed" && (
+        <div><label>Tech Stack</label>
+          <input type="text" name="tech_stack" value={form.tech_stack || ""} onChange={handleChange} />
+          {errors.tech_stack && <p className="text-red-400 text-sm mt-1">{renderError(errors.tech_stack)}</p>}
+        </div>
+
+        <div><label>GitHub Backend URL</label>
+          <input type="url" name="github_backend_url" value={form.github_backend_url || ""} onChange={handleChange} />
+        </div>
+
+        <div><label>GitHub Frontend URL</label>
+          <input type="url" name="github_frontend_url" value={form.github_frontend_url || ""} onChange={handleChange} />
+        </div>
+
+        <div><label>Live URL</label>
+          <input type="url" name="live_url" value={form.live_url || ""} onChange={handleChange} />
+        </div>
+
+        <div className="flex space-x-2">
           <div className="flex-1">
-            <label>End Date</label>
-            <input type="date" name="end_date" value={form.end_date || ""} onChange={handleChange} />
-            {errors.end_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.end_date)}</p>}
+            <label>Start Date</label>
+            <input type="date" name="start_date" value={form.start_date || ""} onChange={handleChange} />
+            {errors.start_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.start_date)}</p>}
           </div>
-        )}
-      </div>
 
-      <div>
-        <label>Status</label>
-        <select name="status" value={form.status || ""} onChange={handleChange}>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-          <option value="Paused">Paused</option>
-        </select>
-      </div>
+          {form.status === "Completed" && (
+            <div className="flex-1">
+              <label>End Date</label>
+              <input type="date" name="end_date" value={form.end_date || ""} onChange={handleChange} />
+              {errors.end_date && <p className="text-red-400 text-sm mt-1">{renderError(errors.end_date)}</p>}
+            </div>
+          )}
+        </div>
 
-      <div>
-        <label>Description</label>
-        <textarea name="description" rows={4} value={form.description || ""} onChange={handleChange}></textarea>
-        {errors.description && <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>}
-      </div>
+        <div><label>Status</label>
+          <select name="status" value={form.status || ""} onChange={handleChange}>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+            <option value="Paused">Paused</option>
+          </select>
+        </div>
 
-      <div className="flex justify-between mt-8">
-        <button type="button" onClick={resetForm} disabled={saving}>Cancel</button>
-        <button type="submit" disabled={saving}>
-          {saving ? "Saving..." : "Add Project"}
-        </button>
-      </div>
-    </form>
+        <div><label>Description</label>
+          <textarea name="description" rows={4} value={form.description || ""} onChange={handleChange}></textarea>
+          {errors.description && <p className="text-red-400 text-sm mt-1">{renderError(errors.description)}</p>}
+        </div>
+
+        <div className="flex justify-between mt-8">
+          <div className="glow-button-wrapper">
+            <button type="button" onClick={resetForm} disabled={saving} className="glow-button">
+              Cancel
+            </button>
+          </div>
+          <div className="glow-button-wrapper">
+            <button type="submit" disabled={saving} className="glow-button">
+              {saving ? "Saving..." : "Add Project"}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }

@@ -150,9 +150,9 @@ export default function EditProjectModal({ isOpen, onClose, onProjectUpdated, pr
                 <form
                   onSubmit={handleSubmit}
                   className="w-full p-8 rounded-2xl border border-cyan-400 
-                    text-slate-100 font-semibold shadow-[0_0_25px_rgba(34,211,238,0.2)] 
-                    backdrop-blur-lg bg-transparent transition-all"
-                  >
+                  text-slate-100 font-semibold shadow-[0_0_25px_rgba(34,211,238,0.2)] 
+                  backdrop-blur-lg bg-transparent transition-all"
+                >
                   <Dialog.Title className="text-3xl font-bold text-cyan-100 mb-6 text-center">
                     ✍️ Edit Project
                   </Dialog.Title>

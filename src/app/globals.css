@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #121e30; /* lighter dark blue */
-  --foreground: #a5f3fc; /* neon cyan */
+  --background: #121e30;
+  --foreground: #a5f3fc;
 }
 
 html, body {
@@ -18,7 +18,7 @@ html, body {
   background: var(--background);
 }
 
-/* ========= OUT OF THE WORLD BACKGROUND ========== */
+/* ========= OUT OF THE WORLD BACKGROUND ========= */
 body::before {
   content: "";
   position: fixed;
@@ -29,13 +29,11 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
-
 @keyframes driftGrid {
   0% { background-position: 0 0; }
   50% { background-position: 100px 100px; }
   100% { background-position: 0 0; }
 }
-
 body::after {
   content: "";
   position: fixed;
@@ -44,20 +42,17 @@ body::after {
     rgba(0, 255, 255, 0.12),
     rgba(100, 0, 200, 0.15),
     rgba(0, 150, 255, 0.12),
-    rgba(0, 255, 255, 0.12)
-  );
+    rgba(0, 255, 255, 0.12));
   background-size: 200% 200%;
   animation: slowMove 40s ease infinite;
   pointer-events: none;
   z-index: 0;
 }
-
 @keyframes slowMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
 body::after::after {
   content: "";
   position: fixed;
@@ -70,31 +65,50 @@ body::after::after {
   pointer-events: none;
   z-index: 0;
 }
-
 @keyframes pulse {
   0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.1; }
   50%      { transform: translate(-50%, -50%) scale(1.2); opacity: 0.2; }
 }
 
-/* ========= BUTTONS & NAV LINKS ========= */
-button, .glow-button {
-  background: rgba(8,145,178,0.15);
+/* ========= GLOW BUTTON WRAPPERS ========= */
+.glow-button-wrapper {
+  display: inline-block;
+  border-radius: 0.75rem;
+  box-shadow: inset 0 0 10px rgba(34,211,238,0.2), 0 0 10px rgba(34,211,238,0.3);
+  transition: box-shadow 0.4s, background 0.4s;
+}
+.glow-button-wrapper:hover {
+  box-shadow: inset 0 0 14px rgba(34,211,238,0.3), 0 0 14px rgba(34,211,238,0.5);
+  background: rgba(34,211,238,0.05);
+}
+
+/* ========= BUTTONS ========= */
+.glow-button {
+  background: transparent;
   border: 1px solid rgba(34,211,238,0.4);
   color: #a5f3fc;
-  padding: 0.5rem 1.2rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
   backdrop-filter: blur(8px);
-  box-shadow: inset 0 0 10px rgba(34,211,238,0.2), 0 0 10px rgba(34,211,238,0.3);
-  transition: all 0.4s ease;
   cursor: pointer;
+  font-weight: 600;
+  transition: color 0.4s;
 }
-button:hover, .glow-button:hover {
-  background: rgba(34,211,238,0.2);
-  border-color: rgba(34,211,238,0.6);
-  box-shadow: inset 0 0 14px rgba(34,211,238,0.3), 0 0 14px rgba(34,211,238,0.5);
+.glow-button:hover {
   color: #67e8f9;
 }
 
+/* For DELETE red version */
+.glow-button.delete {
+  border-color: rgba(239,68,68,0.4);
+  color: #fca5a5;
+}
+.glow-button-wrapper:hover .glow-button.delete {
+  border-color: rgba(239,68,68,0.6);
+  color: #f87171;
+}
+
+/* ========= NAV LINKS ========= */
 nav a {
   border: 1px solid transparent;
   border-radius: 0.75rem;
@@ -115,26 +129,37 @@ nav a:hover {
   border: 1px solid rgba(34,211,238,0.4);
   border-radius: 0.75rem;
   background: rgba(8,145,178,0.05);
-  box-shadow: inset 0 0 10px rgba(34,211,238,0.1), 0 0 14px rgba(34,211,238,0.3);
+  box-shadow: inset 0 0 10px rgba(34,211,238,0.1), 
+              0 0 14px rgba(34,211,238,0.3);
   backdrop-filter: blur(8px);
-  transition: all 0.4s ease;
-}
-.project-card:hover {
-  background: rgba(8,145,178,0.1);
-  box-shadow: inset 0 0 14px rgba(34,211,238,0.2), 0 0 20px rgba(34,211,238,0.5);
+  transition: box-shadow 0.8s, background 1s;
 }
 
-/* ========= UNIFIED GLOWING FORMS ========= */
+.project-card:hover {
+  background: rgba(8,145,178,0.1);
+  box-shadow: inset 0 0 14px rgba(34,211,238,0.3), 
+              0 0 30px rgba(34,211,238,0.6);
+}
+
+.project-card:active {
+  background: rgba(8,145,178,0.15);
+  box-shadow: inset 0 0 20px rgba(34,211,238,0.4), 0 0 30px rgba(34,211,238,0.6);
+  transform: scale(0.98);
+}
+
+
+/* ========= FORMS ========= */
 form {
   background: rgba(8,145,178,0.04);
   border: 1px solid rgba(34,211,238,0.4);
   border-radius: 1rem;
   padding: 2rem;
-  padding-bottom:2em;
-  margin-bottom: 4em;
-  box-shadow:inset 0 0 10px rgba(34,211,238,0.2), 0 0 14px rgba(34,211,238,0.3);
+  margin: 2rem auto;
+  box-shadow: inset 0 0 10px rgba(34,211,238,0.2), 0 0 14px rgba(34,211,238,0.3);
   backdrop-filter: blur(12px);
   transition: all 0.4s ease;
+  width: 92%;
+  max-width: 100%;
 }
 form:hover {
   background: rgba(8,145,178,0.06);
@@ -168,66 +193,34 @@ form select:focus {
   box-shadow: inset 0 0 16px rgba(34,211,238,0.4), 0 0 10px rgba(34,211,238,0.5);
   border: 1px solid rgba(34,211,238,0.6);
 }
-
-
-/* ========= FORM LABELS ========= */
 form label {
   display: block;
-  font-weight: 600; /* space BELOW label */   /* space ABOVE label */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
   color: var(--foreground);
 }
-form label:first-child {
-  margin-top: 0;
+
+/* Responsive form width */
+@media (min-width: 640px) {
+  form { width: 85%; max-width: 36rem; }
+}
+@media (min-width: 1024px) {
+  form { width: 100%; max-width: 48rem; }
 }
 
-/* ========= FORM BUTTONS ========= */
-form button {
-  background: transparent;
-  border: 1px solid rgba(34,211,238,0.4);
-  color: #a5f3fc;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
-  backdrop-filter: blur(8px);
-  box-shadow: inset 0 0 10px rgba(34,211,238,0.2), 0 0 10px rgba(34,211,238,0.3);
-  transition: all 0.4s ease;
+/* Remove min-height and centering on small screens */
+@media (max-width: 639px) {
+  form {
+    min-height: auto;
+    justify-content: start;
+  }
+}
+
+/* ========= GLOBAL BUTTON CURSOR & FOCUS ========= */
+button {
   cursor: pointer;
 }
-form button:hover {
-  background: rgba(34,211,238,0.1);
-  border-color: rgba(34,211,238,0.6);
-  box-shadow: inset 0 0 14px rgba(34,211,238,0.3), 0 0 14px rgba(34,211,238,0.5);
-  color: #67e8f9;
-}
 
-
-/* ========= RESPONSIVE FORM WIDTH ========= */
-form {
-  width: 92%;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-/* Medium devices (640px and up = tablets) */
-@media (min-width: 640px) {
-  form {
-    width: 85%;
-    max-width: 36rem; /* ~576px */
-  }
-}
-
-/* Large devices (1024px and up = desktops) */
-@media (min-width: 1024px) {
-  form {
-    width: 100%;
-    max-width: 48rem; /* ~768px */
-  }
-}
-
-
-/* ========= ENSURE FORM DOES NOT LEAVE DARK AREA ========= */
-form {
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+button:focus {
+  outline: none;
 }

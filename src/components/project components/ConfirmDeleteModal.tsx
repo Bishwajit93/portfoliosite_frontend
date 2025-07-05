@@ -25,7 +25,7 @@ export default function ConfirmDeleteModal({
           enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100"
           leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black bg-opacity-50" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -35,10 +35,10 @@ export default function ConfirmDeleteModal({
               enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100"
               leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl 
-                bg-red-400/5 border border-red-400 p-8 text-left 
-                shadow-lg shadow-red-400/20 backdrop-blur-xl 
-                hover:bg-red-400/10 transition-all">
+              <Dialog.Panel className="w-full max-w-md rounded-2xl border border-red-400 
+                p-8 backdrop-blur-lg bg-transparent 
+                shadow-[0_0_25px_rgba(248,113,113,0.2)] hover:shadow-[0_0_30px_rgba(248,113,113,0.3)] 
+                transition-all">
                 
                 <Dialog.Title className="text-xl font-bold text-red-300 mb-4 text-center">
                   ⚠️ Confirm Delete
@@ -61,24 +61,22 @@ export default function ConfirmDeleteModal({
                 )}
 
                 <div className="flex justify-center space-x-4 mt-6">
-                  <button
-                    onClick={onClose}
-                    className="border border-cyan-400 text-cyan-300 px-6 py-2 rounded-xl
-                      shadow-md shadow-cyan-400/20 bg-transparent
-                      hover:bg-cyan-200/10 hover:shadow-cyan-400/30
-                      transition-all"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={onConfirm}
-                    className="border border-red-400 text-red-300 px-6 py-2 rounded-xl
-                      shadow-md shadow-red-400/20 bg-transparent
-                      hover:bg-red-200/10 hover:shadow-red-400/30
-                      transition-all"
-                  >
-                    Delete
-                  </button>
+                  <div className="glow-button-wrapper">
+                    <button
+                      onClick={onClose}
+                      className="glow-button border-cyan-400 text-cyan-300"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <div className="glow-button-wrapper">
+                    <button
+                      onClick={onConfirm}
+                      className="glow-button border-red-400 text-red-300"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
