@@ -160,7 +160,6 @@ form {
   transition: all 0.4s ease;
   width: 92%;
   max-width: 100%;
-  position: relative;
   margin-bottom: 8rem;
 }
 form:hover {
