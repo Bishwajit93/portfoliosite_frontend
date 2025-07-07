@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
-import "@/styles/header.css";
+import { useState } from "react";
 
 export default function Header() {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
     { href: "/", label: "About Me" },
@@ -17,43 +17,41 @@ export default function Header() {
   ];
 
   return (
-    <header className="train-header">
-      <motion.div
-        initial={{ y: "-60vh", opacity: 1 }}
-        animate={{ y: "0" }}
-        transition={{ 
-          duration: 1.4, 
-          ease: [0.68, -0.55, 0.27, 1.55] // springy bezier for a bounce
-        }}
-        style={{ 
-          display: "flex", 
-          alignItems: "center", 
-          justifyContent: "space-between", 
-          width: "100%" 
-        }}
+    <header className={`header ${menuOpen ? "open" : ""}`}>
+      <div className="engine">
+        <Link href="/">Bishwajit Karmaker</Link>
+      </div>
+      <nav className="nav-desktop">
+        {navLinks.map(({ href, label }) => (
+          <Link
+            key={href}
+            href={href}
+            className={pathname === href ? "active" : ""}
+          >
+            {label}
+          </Link>
+        ))}
+      </nav>
+      <div
+        className={`hamburger ${menuOpen ? "open" : ""}`}
+        onClick={() => setMenuOpen(!menuOpen)}
       >
-        <Link
-          href="/"
-          className="engine"
-        >
-          Bishwajit Karmaker
-        </Link>
-
-        <div className="train">
-          {navLinks.map(({ href, label }) => {
-            const isActive = pathname === href;
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`bogie ${isActive ? "active" : ""}`}
-              >
-                {label}
-              </Link>
-            );
-          })}
-        </div>
-      </motion.div>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+      </div>
+      <div className="mobile-menu">
+        {navLinks.map(({ href, label }) => (
+          <Link
+            key={href}
+            href={href}
+            className={pathname === href ? "active" : ""}
+            onClick={() => setMenuOpen(false)}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
     </header>
   );
 }

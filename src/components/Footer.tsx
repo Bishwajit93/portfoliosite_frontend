@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from "framer-motion";
-import "@/styles/footer.css";
 
 export default function Footer() {
   return (

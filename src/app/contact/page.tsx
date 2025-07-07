@@ -1,29 +1,60 @@
 'use client';
 
-
-import ContactForm from '@/components/ContactForm';
+import React from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import ContactForm from '@/components/ContactForm';
+import '@/styles/contactPage.css';
 
-export default function ContactPage() {
+const ContactPage: React.FC = () => {
   return (
-      <main className="max-w-4xl mx-auto p-4">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 text-cyan-200">
-          Get in Touch
-        </h1>
+    <main className="contact-page">
+      <p className="text-center text-cyan-100 mb-8 max-w-xl">
+        Whether you have an exciting project in mind, need a reliable developer for your next idea, 
+        or just want to connect — feel free to reach out. I am always open to collaborations, freelance 
+        opportunities, or even sharing insights and resources. Let us build something amazing together!
+      </p>
+      <div className="contact-form">
+        <ContactForm />
+      </div>
 
-        <div className="flex justify-center space-x-6 mb-8 text-cyan-300 text-3xl">
-          <a href="https://github.com/Bishwajit93" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition">
-            <FaGithub />
-          </a>
-          <a href="https://www.linkedin.com/in/bishwajit-karmaker/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition">
-            <FaLinkedin />
-          </a>
-          <a href="mailto:bish.karm123@gmail.com" className="hover:text-cyan-400 transition">
-            <FaEnvelope />
-          </a>
+      <div className="contact-links">
+        <div className="contact-card">
+          <FaGithub />
+          <span>
+            <a
+              href="https://github.com/Bishwajit93"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/Bishwajit93
+            </a>
+          </span>
         </div>
 
-        <ContactForm />
-      </main>
+        <div className="contact-card">
+          <FaLinkedin />
+          <span>
+            <a
+              href="https://www.linkedin.com/in/bishwajit-karmaker/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              linkedin.com/in/bishwajit-karmaker
+            </a>
+          </span>
+        </div>
+
+        <div className="contact-card">
+          <FaEnvelope />
+          <span>
+            <a href="mailto:bish.karm123@gmail.com">
+              bish.karm123@gmail.com
+            </a>
+          </span>
+        </div>
+      </div>
+    </main>
   );
-}
+};
+
+export default ContactPage;
