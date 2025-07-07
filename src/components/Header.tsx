@@ -32,12 +32,12 @@ export default function Header() {
           width: "100%" 
         }}
       >
-        <a
+        <Link
           href="/"
-          className="engine"
+          cassName="engine"
         >
           Bishwajit Karmaker
-        </a>
+        </Link>
 
         <div className="train">
           {navLinks.map(({ href, label }) => {
