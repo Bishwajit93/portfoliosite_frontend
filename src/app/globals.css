@@ -157,56 +157,48 @@ body::after {
 }
 
 /* MOBILE MENU */
-/* MOBILE MENU */
 .mobile-menu {
   display: none;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  position: fixed; /* Make the menu fixed */
-  top: 0;
+  position: absolute;
+  top: 100%;
   left: 0;
   right: 0;
-  bottom: 0; /* Ensure it covers the full screen */
-  background: rgba(0, 255, 255, 0.9); /* Solid background */
-  z-index: 20;
-  backdrop-filter: none; /* Disable the backdrop blur for the menu itself */
-  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+  background: black; /* Solid background, increased opacity */
+  backdrop-filter: blur(100px); /* Stronger blur effect */
+  border-radius: 0 0 0.75rem 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,255,255,0.2);
   padding: 1rem 0;
+  z-index: 20;
 }
 
-/* When the menu is open, we add a background blur effect to the page */
-.header.open ~ * {
-  filter: blur(5px); /* Apply a blur to everything behind the menu */
-}
-
-/* Styling for the links */
 .mobile-menu a {
   display: inline-block;
   color: var(--foreground);
   text-decoration: none;
   font-size: 1.1rem;
   padding: 0.2rem 0.8rem;
-  border: 1px solid rgba(34, 211, 238, 0.2);
+  border: 1px solid rgba(34,211,238,0.2);
   border-radius: 0.75rem;
   backdrop-filter: blur(6px);
-  background: rgba(34, 211, 238, 0.05);
-  box-shadow: inset 0 0 8px rgba(34, 211, 238, 0.15);
+  background: rgba(34,211,238,0.05);
+  box-shadow: inset 0 0 8px rgba(34,211,238,0.15);
   transition: all 0.4s;
 }
 
-/* Hover and active states for links */
 .mobile-menu a:hover {
-  background: rgba(34, 211, 238, 0.12);
-  border-color: rgba(34, 211, 238, 0.5);
-  box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+  background: rgba(34,211,238,0.12);
+  border-color: rgba(34,211,238,0.5);
+  box-shadow: 0 0 12px rgba(34,211,238,0.4);
   color: var(--accent-cyan);
 }
 
 .mobile-menu a.active {
-  background: rgba(34, 211, 238, 0.18);
-  border: 1px solid rgba(34, 211, 238, 0.6);
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+  background: rgba(34,211,238,0.18);
+  border: 1px solid rgba(34,211,238,0.6);
+  box-shadow: 0 0 20px rgba(34,211,238,0.6);
   color: var(--accent-lime);
 }
 
@@ -214,7 +206,6 @@ body::after {
 .header.open .mobile-menu {
   display: flex;
 }
-
 
 
 /* RESPONSIVE */
