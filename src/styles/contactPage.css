@@ -98,23 +98,27 @@
     gap: 0.8rem;
   }
 
+  /* Contact card updates */
   .contact-card {
-    justify-content: center;
+    display: flex;
+    justify-content: center; /* center logos */
+    align-items: center;
     text-align: center;
     width: 100%;
-    padding: 0.8rem;
+    padding: 0.5rem; /* reduce padding for smaller cards */
+    gap: 0.4rem; /* space between logo and text */
   }
 
   .contact-card svg {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .contact-card span a {
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* slightly larger text for better readability */
+    padding-left: 0.2rem; /* add slight padding if needed */
   }
-}
 
-@media (max-width: 768px) {
+  /* Small space between input fields */
   form input, form textarea, form select {
     margin-bottom: 0.1rem !important;
   }

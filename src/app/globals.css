@@ -157,6 +157,7 @@ body::after {
 }
 
 /* MOBILE MENU */
+/* MOBILE MENU */
 .mobile-menu {
   display: none;
   flex-direction: column;
@@ -166,11 +167,11 @@ body::after {
   top: 100%;
   left: 0;
   right: 0;
-  background: rgba(0,255,255,0.08);
+  background: rgba(0,255,255,0.15); /* Increased visibility */
   backdrop-filter: blur(10px);
   border-radius: 0 0 0.75rem 0.75rem;
   box-shadow: 0 4px 12px rgba(0,255,255,0.2);
-  padding: 1rem 0;
+  padding: 0.8rem 0; /* Reduced padding */
   z-index: 20;
 }
 
@@ -178,8 +179,8 @@ body::after {
   display: inline-block;
   color: var(--foreground);
   text-decoration: none;
-  font-size: 1.1rem;
-  padding: 0.2rem 0.8rem;
+  font-size: 0.9rem; /* Reduced font size */
+  padding: 0.3rem 0.7rem; /* Reduced padding */
   border: 1px solid rgba(34,211,238,0.2);
   border-radius: 0.75rem;
   backdrop-filter: blur(6px);
@@ -201,6 +202,7 @@ body::after {
   box-shadow: 0 0 20px rgba(34,211,238,0.6);
   color: var(--accent-lime);
 }
+
 
 
 /* TOGGLE MOBILE */
