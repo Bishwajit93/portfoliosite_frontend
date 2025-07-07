@@ -1,9 +1,7 @@
 'use client'
-import Layout from '@/components/Layout'
 
 export default function EducationPage() {
   return (
-    <Layout>
       <div className="max-w-2xl mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">Education</h1>
 
@@ -23,6 +21,5 @@ export default function EducationPage() {
           </p>
         </div>
       </div>
-    </Layout>
   )
 }

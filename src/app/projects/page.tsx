@@ -5,7 +5,6 @@ import { Project } from "@/types/project";
 import { fetchProjects } from "@/lib/api/projectApi";
 import AddProjectForm from "@/components/project components/AddProjectForm";
 import ProjectCard from "@/components/project components/ProjectCard";
-import Layout from "@/components/Layout";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -39,7 +38,6 @@ export default function ProjectsPage() {
   };
 
   return (
-    <Layout>
       <main className="max-w-4xl mx-auto p-4">
         <h1 className="text-3xl font-bold text-center mb-4">Projects</h1>
         <div className="flex justify-end mb-6">
@@ -78,6 +76,5 @@ export default function ProjectsPage() {
           ))}
         </div>
       </main>
-    </Layout>
   );
 }

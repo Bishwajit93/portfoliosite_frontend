@@ -1,0 +1,90 @@
+/* ---------------------------
+   Navbar Base Styles
+--------------------------- */
+.train-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 50;
+  background: transparent; /* starts transparent */
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  overflow: hidden;
+  animation: navbarGlow 1s ease forwards 1.4s;
+}
+
+/* Animate navbar background, rounded edges & glow after content lands */
+@keyframes navbarGlow {
+  0% {
+    background: transparent;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 0 0 0 rgba(0,255,255,0);
+  }
+  100% {
+    background: rgba(0, 255, 255, 0.1); /* light cyan glass */
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    box-shadow: 0 0 25px rgba(0,255,255,0.3), 0 8px 25px rgba(0,255,255,0.15);
+  }
+}
+
+/* ---------------------------
+   Your Name (logo)
+--------------------------- */
+.engine {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 0.4rem 0; /* reduce padding so it hugs text */
+  border-radius: 0;   /* remove any rounding */
+  background: transparent; /* totally transparent */
+  color: #00ffff;
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+  transition: all 0.4s ease;
+  margin-left: 10rem;
+}
+
+.engine:hover {
+  color: #a0faff;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
+  transform: translateX(2px);
+}
+
+
+/* ---------------------------
+   Nav Links on Right
+--------------------------- */
+.train {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  margin-right: 10rem;
+}
+
+/* Each nav link */
+.bogie {
+  background: rgba(0,255,255,0.15);
+  border: 1px solid rgba(0,255,255,0.4);
+  padding: 0.4rem 1.1rem;
+  border-radius: 0.8rem;
+  font-size: 1.1rem;
+  color: #c0faff;
+  box-shadow: inset 0 0 8px rgba(0,255,255,0.25), 0 0 10px rgba(0,255,255,0.3);
+  transition: all 0.3s ease;
+}
+
+.bogie:hover {
+  background: rgba(0,255,255,0.25);
+  box-shadow: inset 0 0 12px rgba(0,255,255,0.4), 0 0 16px rgba(0,255,255,0.5);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.bogie.active {
+  background: rgba(0,255,255,0.2);
+  box-shadow: 0 0 14px rgba(0,255,255,0.5);
+}

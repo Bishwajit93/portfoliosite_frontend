@@ -1,10 +1,14 @@
 @import "tailwindcss";
 
+/* ========= COLORS & ROOT ========= */
 :root {
   --background: #121e30;
   --foreground: #a5f3fc;
+  --accent-cyan: #22d3ee;
+  --accent-lime: #a3e635;
 }
 
+/* ========= BASE ========= */
 html, body {
   font-size: 1rem;
   line-height: 1.6;
@@ -13,16 +17,11 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  overflow-y: auto;
-  max-width: 100vw;
-  position: relative;
+  width: 100%;
+  min-height: 100%;
   background: var(--background);
-  z-index: 1;
-
   overscroll-behavior: none;
-  background-attachment: fixed;
 }
-
 
 /* ========= OUT OF THE WORLD BACKGROUND ========= */
 body::before {
@@ -35,11 +34,13 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
+
 @keyframes driftGrid {
   0% { background-position: 0 0; }
   50% { background-position: 100px 100px; }
   100% { background-position: 0 0; }
 }
+
 body::after {
   content: "";
   position: fixed;
@@ -54,30 +55,21 @@ body::after {
   pointer-events: none;
   z-index: 0;
 }
+
 @keyframes slowMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-body::after::after {
-  content: "";
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(0,255,255,0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: pulse 8s infinite ease-in-out;
-  pointer-events: none;
-  z-index: 0;
-}
-@keyframes pulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.1; }
-  50%      { transform: translate(-50%, -50%) scale(1.2); opacity: 0.2; }
+
+/* ========= MAIN CONTENT ========= */
+main {
+  padding-top: 5rem;
+  z-index: 1;
+  position: relative;
 }
 
-/* ========= GLOW BUTTON WRAPPERS ========= */
+/* ========= BUTTONS ========= */
 .glow-button-wrapper {
   display: inline-block;
   border-radius: 0.75rem;
@@ -89,11 +81,10 @@ body::after::after {
   background: rgba(34,211,238,0.05);
 }
 
-/* ========= BUTTONS ========= */
 .glow-button {
   background: transparent;
   border: 1px solid rgba(34,211,238,0.4);
-  color: #a5f3fc;
+  color: var(--foreground);
   padding: 0.75rem 1.5rem;
   border-radius: 0.75rem;
   backdrop-filter: blur(8px);
@@ -105,7 +96,7 @@ body::after::after {
   color: #67e8f9;
 }
 
-/* DELETE red version */
+/* ========= DELETE VARIANT ========= */
 .glow-button.delete {
   border-color: rgba(239,68,68,0.4);
   color: #fca5a5;
@@ -204,28 +195,13 @@ form label {
   color: var(--foreground);
 }
 
-/* Responsive form width */
+/* ========= RESPONSIVE FORM WIDTH ========= */
 @media (min-width: 640px) {
   form { width: 85%; max-width: 36rem; }
 }
 @media (min-width: 1024px) {
   form { width: 100%; max-width: 48rem; }
 }
-
-/* Smaller radial pulse on mobile */
-@media (max-width: 640px) {
-  body::after::after {
-    width: 100%;
-    height: 100%;
-    opacity: 0.04;
-  }
-}
-
-/* Fix form centering on small screens */
 @media (max-width: 639px) {
-  form {
-    min-height: auto;
-    justify-content: start;
-  }
+  form { min-height: auto; justify-content: start; }
 }
-
