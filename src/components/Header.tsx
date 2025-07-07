@@ -34,7 +34,7 @@ export default function Header() {
       >
         <Link
           href="/"
-          cassName="engine"
+          className="engine"
         >
           Bishwajit Karmaker
         </Link>
